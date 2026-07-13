@@ -1,20 +1,15 @@
-# coding=utf-8
+"""
+Test file for quickly play with Python in general
+"""
 
-import fmgjsonrpcapi
+import json
 
-fmg = fmgjsonrpcapi.FMGJSONRPCAPI()
-fmg.login("secops-labs-004.gcp.fortipoc.net", "devops", "fortinet", port=10407)
+#SWAGGER_FILE="fmg_jsonrpc_api/swagger/dvmdb.json"
+SWAGGER_FILE="fmg_jsonrpc_api/swagger/cdb-obj74.json"
 
-url = "/um/object/list"
-payload = {
-    "data": {
-        "used_only": 1,
-        "version_list": 1,
-    },
-}
+if __name__ == "__main__":
+    with open(SWAGGER_FILE, "r") as f:
+        content = json.load(f)
 
-fmg.debug("on")
-fmg.get(url, payload)
-fmg.debug("off")
-
-fmg.logout()
+for key in content["tags"]:
+    print(key["name"])

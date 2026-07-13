@@ -1,0 +1,3500 @@
+{
+  "basePath": "/jsonrpc",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "soar.config.connectors.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "endusers' data.",
+                "items": {
+                  "properties": {
+                    "auth-password": {
+                      "description": "authorization password",
+                      "type": "string"
+                    },
+                    "auth-token": {
+                      "description": "authorization token",
+                      "type": "string"
+                    },
+                    "auth-type": {
+                      "description": "authorization type of a connector.",
+                      "enum": [
+                        "none",
+                        "password",
+                        "token",
+                        "certificate",
+                        "saml"
+                      ],
+                      "type": "string"
+                    },
+                    "auth-user": {
+                      "description": "authorization user.",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "description of a connector.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "name of a connector.",
+                      "type": "string"
+                    },
+                    "server-addr": {
+                      "description": "server address",
+                      "type": "string"
+                    },
+                    "server-name": {
+                      "description": "server name",
+                      "type": "string"
+                    },
+                    "server-port": {
+                      "description": "server port",
+                      "type": "integer"
+                    },
+                    "status": {
+                      "description": "status of a connector.",
+                      "enum": [
+                        "enable",
+                        "disable"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "type of a connector.",
+                      "enum": [
+                        "EMS",
+                        "FGD",
+                        "FML",
+                        "FCASB"
+                      ],
+                      "type": "string"
+                    },
+                    "uuid": {
+                      "description": "an unique identifier of a connector. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                      "example": "123a4567-b89c-12d3-e456-789012345678",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "uuid",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/connectors"
+                ],
+                "example": "/soar/adom/root/config/connectors",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.connectors.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "data": {
+              "description": "A structured value containing uuid.",
+              "properties": {
+                "uuid": {
+                  "description": "An unique identifier of a connector. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.connectors.connector-uuid.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/connectors/<connector-uuid>"
+                ],
+                "example": "/soar/adom/root/config/connectors/<connector-uuid>",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.connectors.connector-uuid.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.connectors.connector-uuid.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/connectors/<connector-uuid>"
+                ],
+                "example": "/soar/adom/root/config/connectors/<connector-uuid>",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.connectors.connector-uuid.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "data": {
+              "description": "endusers' data.",
+              "items": {
+                "properties": {
+                  "auth-password": {
+                    "description": "authorization password",
+                    "type": "string"
+                  },
+                  "auth-token": {
+                    "description": "authorization token",
+                    "type": "string"
+                  },
+                  "auth-type": {
+                    "description": "authorization type of a connector.",
+                    "enum": [
+                      "none",
+                      "password",
+                      "token",
+                      "certificate",
+                      "saml"
+                    ],
+                    "type": "string"
+                  },
+                  "auth-user": {
+                    "description": "authorization user.",
+                    "type": "string"
+                  },
+                  "description": {
+                    "description": "description of a connector.",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "name of a connector.",
+                    "type": "string"
+                  },
+                  "server-addr": {
+                    "description": "server address",
+                    "type": "string"
+                  },
+                  "server-name": {
+                    "description": "server name",
+                    "type": "string"
+                  },
+                  "server-port": {
+                    "description": "server port",
+                    "type": "integer"
+                  },
+                  "status": {
+                    "description": "status of a connector.",
+                    "enum": [
+                      "enable",
+                      "disable"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "type of a connector.",
+                    "enum": [
+                      "EMS",
+                      "FGD",
+                      "FML",
+                      "FCASB"
+                    ],
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "description": "unique identifier of a connector, 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "name",
+                  "status",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.connectors.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "endusers' data.",
+                "items": {
+                  "properties": {
+                    "auth-password": {
+                      "description": "authorization password",
+                      "type": "string"
+                    },
+                    "auth-token": {
+                      "description": "authorization token",
+                      "type": "string"
+                    },
+                    "auth-type": {
+                      "description": "authorization type of a connector.",
+                      "enum": [
+                        "none",
+                        "password",
+                        "token",
+                        "certificate",
+                        "saml"
+                      ],
+                      "type": "string"
+                    },
+                    "auth-user": {
+                      "description": "authorization user.",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "description of a connector.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "name of a connector.",
+                      "type": "string"
+                    },
+                    "server-addr": {
+                      "description": "server address",
+                      "type": "string"
+                    },
+                    "server-name": {
+                      "description": "server name",
+                      "type": "string"
+                    },
+                    "server-port": {
+                      "description": "server port",
+                      "type": "integer"
+                    },
+                    "status": {
+                      "description": "status of a connector.",
+                      "enum": [
+                        "enable",
+                        "disable"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "type of a connector.",
+                      "enum": [
+                        "EMS",
+                        "FGD",
+                        "FML",
+                        "FCASB"
+                      ],
+                      "type": "string"
+                    },
+                    "uuid": {
+                      "description": "unique identifier of a connector. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                      "example": "123a4567-b89c-12d3-e456-789012345678",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "uuid"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/connectors"
+                ],
+                "example": "/soar/adom/root/config/connectors",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.connectors.update.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "data": {
+              "description": "A structured value containing uuid.",
+              "properties": {
+                "uuid": {
+                  "description": "An unique identifier of a connector. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.playbooks.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "endusers' data.",
+                "items": {
+                  "properties": {
+                    "book": {
+                      "description": "playbook's content.",
+                      "example": "{\"play_settings\":{\"play_type\":\"ON_SCHEDULE\",\"schedule\":{\"start_time\":\"2019-11-28T13:00:00+00:00\",\"end_time\":\"2020-11-28T13:00:00+00:00\",\"interval\":{\"type\":\"N-MINUTES\",\"frequency\":10},\"render\":{\"left\":100,\"top\":100}}},\"tasks\":[{\"name\":\"Get Endpoints\",\"id\":\"get_endpoints\",\"type\":\"EMS_GET_ENDPOINTS\",\"description\":\"get endpoints through EMS Connector\",\"retry\":{\"count\":0,\"delay\":{\"type\":\"N-SECONDS\",\"duration\":10}},\"run_condition\":\"ALL_SUCCESS\",\"input\":{\"connector_uuid\":{\"value\":\"\"}},\"output\":{\"ems_endpoints\":{}},\"render\":{\"top\":150,\"left\":250}},{\"name\":\"Update Asset and Identity\",\"id\":\"update_asset_and_identity\",\"type\":\"LOCALHOST_UPDATE_ASSET_AND_IDENTITY\",\"description\":\"update asset and identity with given source endpoints\",\"input\":{\"connector_uuid\":{\"value\":\"\"},\"ems_endpoints\":{\"value\":\"${get_endpoints.ems_endpoints}\"}},\"render\":{\"top\":200,\"left\":400}}],\"workflow\":[{\"source_task\":\"STARTER\",\"target_task\":\"get_endpoints\",\"label\":\"\"},{\"source_task\":\"get_endpoints\",\"target_task\":\"update_asset_and_identity\",\"label\":\"\"}]}",
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "description": "the user who creates the playbook.",
+                      "type": "string"
+                    },
+                    "created_on": {
+                      "description": "the time when the playbook was created.",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "description of a playbook.",
+                      "type": "string"
+                    },
+                    "modified_by": {
+                      "description": "the user who modified the playbook.",
+                      "type": "string"
+                    },
+                    "modified_on": {
+                      "description": "the time when the playbook was modified.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "name of a playbook.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "status of a playbook.",
+                      "type": "string"
+                    },
+                    "tags": {
+                      "description": "tags of a playbook.",
+                      "type": "string"
+                    },
+                    "uuid": {
+                      "description": "unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                      "example": "123a4567-b89c-12d3-e456-789012345678",
+                      "type": "string"
+                    },
+                    "version": {
+                      "description": "version of a playbook.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "uuid",
+                    "name",
+                    "created_by",
+                    "created_on",
+                    "version",
+                    "book"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/playbooks"
+                ],
+                "example": "/soar/adom/root/config/playbooks",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.playbooks.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "data": {
+              "description": "A structured value containing uuid.",
+              "properties": {
+                "uuid": {
+                  "description": "An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.playbooks.playbook-uuid.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/playbooks/<playbook-uuid>"
+                ],
+                "example": "/soar/adom/root/config/playbooks/<playbook-uuid>",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.playbooks.playbook-uuid.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.playbooks.playbook-uuid.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/playbooks/<playbook-uuid>"
+                ],
+                "example": "/soar/adom/root/config/playbooks/<playbook-uuid>",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.playbooks.playbook-uuid.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "data": {
+              "description": "endusers' data.",
+              "properties": {
+                "book": {
+                  "description": "playbook's content.",
+                  "example": "{\"play_settings\":{\"play_type\":\"ON_SCHEDULE\",\"schedule\":{\"start_time\":\"2019-11-28T13:00:00+00:00\",\"end_time\":\"2020-11-28T13:00:00+00:00\",\"interval\":{\"type\":\"N-MINUTES\",\"frequency\":10},\"render\":{\"left\":100,\"top\":100}}},\"tasks\":[{\"name\":\"Get Endpoints\",\"id\":\"get_endpoints\",\"type\":\"EMS_GET_ENDPOINTS\",\"description\":\"get endpoints through EMS Connector\",\"retry\":{\"count\":0,\"delay\":{\"type\":\"N-SECONDS\",\"duration\":10}},\"run_condition\":\"ALL_SUCCESS\",\"input\":{\"connector_uuid\":{\"value\":\"\"}},\"output\":{\"ems_endpoints\":{}},\"render\":{\"top\":150,\"left\":250}},{\"name\":\"Update Asset and Identity\",\"id\":\"update_asset_and_identity\",\"type\":\"LOCALHOST_UPDATE_ASSET_AND_IDENTITY\",\"description\":\"update asset and identity with given source endpoints\",\"input\":{\"connector_uuid\":{\"value\":\"\"},\"ems_endpoints\":{\"value\":\"${get_endpoints.ems_endpoints}\"}},\"render\":{\"top\":200,\"left\":400}}],\"workflow\":[{\"source_task\":\"STARTER\",\"target_task\":\"get_endpoints\",\"label\":\"\"},{\"source_task\":\"get_endpoints\",\"target_task\":\"update_asset_and_identity\",\"label\":\"\"}]}",
+                  "type": "string"
+                },
+                "created_by": {
+                  "description": "the user who creates the playbook.",
+                  "type": "string"
+                },
+                "created_on": {
+                  "description": "the time when the playbook was created.",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "description of a playbook.",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "description": "the user who modified the playbook.",
+                  "type": "string"
+                },
+                "modified_on": {
+                  "description": "the time when the playbook was modified.",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "name of a playbook.",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "status of a playbook.",
+                  "type": "string"
+                },
+                "tags": {
+                  "description": "tags of a playbook.",
+                  "type": "string"
+                },
+                "version": {
+                  "description": "version of a playbook.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid",
+                "name"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.config.playbooks.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "endusers' data.",
+                "items": {
+                  "properties": {
+                    "book": {
+                      "description": "playbook's content.",
+                      "example": "{\"play_settings\":{\"play_type\":\"ON_SCHEDULE\",\"schedule\":{\"start_time\":\"2019-11-28T13:00:00+00:00\",\"end_time\":\"2020-11-28T13:00:00+00:00\",\"interval\":{\"type\":\"N-MINUTES\",\"frequency\":10},\"render\":{\"left\":100,\"top\":100}}},\"tasks\":[{\"name\":\"Get Endpoints\",\"id\":\"get_endpoints\",\"type\":\"EMS_GET_ENDPOINTS\",\"description\":\"get endpoints through EMS Connector\",\"retry\":{\"count\":0,\"delay\":{\"type\":\"N-SECONDS\",\"duration\":10}},\"run_condition\":\"ALL_SUCCESS\",\"input\":{\"connector_uuid\":{\"value\":\"\"}},\"output\":{\"ems_endpoints\":{}},\"render\":{\"top\":150,\"left\":250}},{\"name\":\"Update Asset and Identity\",\"id\":\"update_asset_and_identity\",\"type\":\"LOCALHOST_UPDATE_ASSET_AND_IDENTITY\",\"description\":\"update asset and identity with given source endpoints\",\"input\":{\"connector_uuid\":{\"value\":\"\"},\"ems_endpoints\":{\"value\":\"${get_endpoints.ems_endpoints}\"}},\"render\":{\"top\":200,\"left\":400}}],\"workflow\":[{\"source_task\":\"STARTER\",\"target_task\":\"get_endpoints\",\"label\":\"\"},{\"source_task\":\"get_endpoints\",\"target_task\":\"update_asset_and_identity\",\"label\":\"\"}]}",
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "description": "the user who creates the playbook.",
+                      "type": "string"
+                    },
+                    "created_on": {
+                      "description": "the time when the playbook was created.",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "description of a playbook.",
+                      "type": "string"
+                    },
+                    "modified_by": {
+                      "description": "the user who modified the playbook.",
+                      "type": "string"
+                    },
+                    "modified_on": {
+                      "description": "the time when the playbook was modified.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "name of a playbook.",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "status of a playbook.",
+                      "type": "string"
+                    },
+                    "tags": {
+                      "description": "tags of a playbook.",
+                      "type": "string"
+                    },
+                    "uuid": {
+                      "description": "unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                      "example": "123a4567-b89c-12d3-e456-789012345678",
+                      "type": "string"
+                    },
+                    "version": {
+                      "description": "version of a playbook.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "uuid"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/config/playbooks"
+                ],
+                "example": "/soar/adom/root/config/playbooks",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.config.playbooks.update.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "data": {
+              "description": "A structured value containing uuid.",
+              "properties": {
+                "uuid": {
+                  "description": "An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "uuid"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.fos-connector.automation-rules.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/fos-connector/automation-rules"
+                ],
+                "example": "/soar/adom/root/fos-connector/automation-rules",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.fos-connector.automation-rules.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to the get method.",
+          "properties": {
+            "data": {
+              "description": "automation rules' data.",
+              "items": {
+                "properties": {
+                  "devid": {
+                    "description": "Device ID",
+                    "type": "string"
+                  },
+                  "rule": {
+                    "description": "Automation rule(s)",
+                    "items": {
+                      "properties": {
+                        "action": {
+                          "description": "Action of the rule",
+                          "items": {
+                            "properties": {
+                              "name": {
+                                "description": "Name of the action",
+                                "type": "string"
+                              },
+                              "type": {
+                                "description": "Type of the action",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "name": {
+                          "description": "Name of the rule",
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "description": "Parameters of the rule",
+                          "items": {
+                            "description": "Parameters of the rule.",
+                            "enum": [
+                              "cli-script",
+                              "policyid"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "devid",
+                  "rules"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Error code of the query",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Error message of the query",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.playbook.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be exported with event handlers.",
+                "items": {
+                  "description": "An object that will be attached to the exporting file.",
+                  "example": "connector",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "data-format": {
+                "default": "zip",
+                "description": "The format of the exporting data.",
+                "enum": [
+                  "zip",
+                  "txt"
+                ],
+                "example": "zip",
+                "type": "string"
+              },
+              "filter": {
+                "description": "A filter for selecting exporting playbooks. <a href=\"objects.htm#filter\">Filter Refrence</a>",
+                "example": [
+                  "uuid",
+                  "in",
+                  "941a1c06-2841-47c5-b45b-ca429d23a332",
+                  "2b36d3c6-537f-4671-8280-44549f824e6a"
+                ],
+                "items": {
+                  "description": "Filter format: [<source>, <operater>, <target1>, <target2>, ...].",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/playbook/export"
+                ],
+                "example": "/soar/adom/root/playbook/export",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.playbook.export.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to playbook <b>export</b> method.",
+          "properties": {
+            "attached": {
+              "description": "The attached objects in the exporting file, e.g. 'connector'.",
+              "type": "array"
+            },
+            "checksum": {
+              "description": "Checksum information.",
+              "properties": {
+                "hash": {
+                  "description": "Checksum string.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Checksum algorithm, e.g. 'MD5'.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "method",
+                "hash"
+              ],
+              "type": "object"
+            },
+            "data": {
+              "description": "Data stream in txt format or base64 encoded zip format.",
+              "type": "string"
+            },
+            "data-type": {
+              "description": "The return type of data, e.g. 'zip/base64'.",
+              "type": "string"
+            },
+            "length": {
+              "description": "Length of the returned data stream.",
+              "type": "number"
+            }
+          },
+          "required": [
+            "length",
+            "data",
+            "data-type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.playbook.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be imported with playbooks.",
+                "items": {
+                  "enum": [
+                    "connector"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "conflict-option": {
+                "default": "rename",
+                "description": "When the importing object has the name conflict with an local object, rename the importing object, replace the local object, or skip importing the object.",
+                "enum": [
+                  "rename",
+                  "replace",
+                  "skip"
+                ],
+                "example": "rename",
+                "type": "string"
+              },
+              "data": {
+                "description": "Data stream in txt format or base64 encoded zip format.",
+                "type": "string"
+              },
+              "data-type": {
+                "default": "zip/base64",
+                "description": "The format of the importing data.",
+                "enum": [
+                  "zip/base64",
+                  "txt"
+                ],
+                "example": "zip/base64",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/playbook/import"
+                ],
+                "example": "/soar/adom/root/playbook/import",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.playbook.import.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value describing importing status.",
+          "properties": {
+            "attached": {
+              "description": "The attached objects in the importing file, e.g. 'connector'.",
+              "items": {
+                "enum": [
+                  "connector"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.playbook.run.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "incident-id": {
+                "description": "Incident ID",
+                "example": "IN00000001",
+                "type": "string"
+              },
+              "playbook-input": {
+                "description": "any variable that needed to be passed to the playbook can be filled here as a property: property name is the variable name, property value is the variable value",
+                "type": "object"
+              },
+              "playbook-uuid": {
+                "description": "An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters.",
+                "example": "2b36d3c6-537f-4671-8280-44549f824e6a",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/playbook/run"
+                ],
+                "example": "/soar/adom/SOAR/playbook/run",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "playbook-uuid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.playbook.run.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to playbook run request.",
+          "properties": {
+            "data": {
+              "description": "playbook run data.",
+              "properties": {
+                "instance-id": {
+                  "description": "instance id to track specific playbook run",
+                  "example": "2020-03-30 11:53:13.31809-07",
+                  "type": "string"
+                },
+                "playbook-uuid": {
+                  "description": "An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters.",
+                  "example": "2b36d3c6-537f-4671-8280-44549f824e6a",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Error code of the query",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Error message of the query",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.playbook.run.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "playbook-runs": {
+                "description": "A structure that holds playbook runs, can not be empty.",
+                "items": {
+                  "description": "A structure that hold one playbook run.",
+                  "properties": {
+                    "instance-id": {
+                      "description": "The playbook run instance id.",
+                      "example": "2021-05-04T18:37:57.976500+00:00",
+                      "type": "string"
+                    },
+                    "playbook-uuid": {
+                      "description": "The playbook uuid.",
+                      "example": "5979abf1-a807-47fd-8aca-c03d3b27c124",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/playbook/run"
+                ],
+                "example": "/soar/adom/SOAR/playbook/run",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.playbook.run.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to report run method.",
+          "properties": {
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.playbook.run.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "filter": {
+                "description": "Filtering expresion.",
+                "example": "trigger-source-id<>'IN00019917' playbook-name~'Shawn - Event trigger-LocalHostConnector'",
+                "type": "string"
+              },
+              "instance-id": {
+                "description": "Instance ID to get.",
+                "type": "string"
+              },
+              "playbook-uuid": {
+                "description": "An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters.",
+                "example": "2b36d3c6-537f-4671-8280-44549f824e6a",
+                "type": "string"
+              },
+              "sort-by": {
+                "description": "Sort by field.",
+                "items": {
+                  "properties": {
+                    "field": {
+                      "description": "Sortable field.",
+                      "enum": [
+                        "playbook-uuid",
+                        "playbook-name",
+                        "instance-id",
+                        "start-datetime",
+                        "end-datetime",
+                        "state",
+                        "trigger-source-id",
+                        "trigger-source-time",
+                        "trigger-time"
+                      ],
+                      "example": "start-datetime",
+                      "type": "string"
+                    },
+                    "order": {
+                      "default": "asc",
+                      "description": "Sorting order, asc or desc.",
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ],
+                      "example": "asc",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "time-range": {
+                "description": "Time range for source data selection.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "example": "2019-07-03T17:16:35",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "example": "2019-07-02T17:16:35",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ],
+                "type": "object"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/playbook/run"
+                ],
+                "example": "/soar/adom/SOAR/playbook/run",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.playbook.run.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to the get method.",
+          "properties": {
+            "data": {
+              "description": "automation rules' data.",
+              "items": {
+                "properties": {
+                  "end-datetime": {
+                    "description": "Ending date time",
+                    "type": "string"
+                  },
+                  "playbook-name": {
+                    "description": "Playbook name",
+                    "type": "string"
+                  },
+                  "playbook-uuid": {
+                    "description": "Unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                    "type": "string"
+                  },
+                  "start-datetime": {
+                    "description": "Starting date time",
+                    "type": "string"
+                  },
+                  "state": {
+                    "description": "state",
+                    "enum": [
+                      "success",
+                      "running",
+                      "failed"
+                    ],
+                    "type": "string"
+                  },
+                  "trigger-source-id": {
+                    "description": "Trigger source name",
+                    "type": "string"
+                  },
+                  "trigger-source-type": {
+                    "description": "Source type of the playbook's trigger",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "playbook-uuid",
+                  "playbook-name",
+                  "trigger-source-type",
+                  "trigger-source-id",
+                  "state",
+                  "start-datetime",
+                  "end-datetime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Error code of the query",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Error message of the query",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.subnet.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data-format": {
+                "default": "txt",
+                "description": "The format of the exporting data.",
+                "enum": [
+                  "zip",
+                  "txt"
+                ],
+                "example": "txt",
+                "type": "string"
+              },
+              "filter": {
+                "description": "A filter for selecting exporting subnets and subnet groups",
+                "properties": {
+                  "address-group": {
+                    "description": "The filter array of names. If all subnet groups will be exported, set this filter to null (\"address-group\": null,). If none of the subnet groups will be exported, leave the filter array blank (\"address-group\": [],).",
+                    "items": {
+                      "description": "Names of exporting subnet groups.",
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "address-object": {
+                    "description": "The filter array of names. If all subnets will be exported, set this filter to null (\"address-object\": null,). If none of the subnets will be exported, leave the filter array blank (\"address-object\": [],).",
+                    "items": {
+                      "description": "Names of exporting subnets.",
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/subnet/export"
+                ],
+                "example": "/soar/adom/root/subnet/export",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.subnet.export.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to subnet <b>export</b> method.",
+          "properties": {
+            "data": {
+              "description": "Data stream in txt format or base64 encoded zip format.",
+              "properties": {
+                "address-group": {
+                  "description": "The array of the exported subnet groups.",
+                  "items": {
+                    "description": "The object in the exported subnet group.",
+                    "properties": {
+                      "address-grps": {
+                        "description": "The subnet groups referred in the exported subnet group.",
+                        "items": {
+                          "description": "The objects in the referred subnet group.",
+                          "properties": {
+                            "name": {
+                              "description": "The name of the referred subnet group.",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "address-objs": {
+                        "description": "The subnets referred in the exported subnet group.",
+                        "items": {
+                          "description": "The objects in the referred subnet.",
+                          "properties": {
+                            "name": {
+                              "description": "The name of the referred subnet.",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "create-time": {
+                        "description": "The timestamp of creating the subnet group.",
+                        "type": "string"
+                      },
+                      "discription": {
+                        "description": "The discription of the exported subnet group.",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "The name of the exported subnet group.",
+                        "type": "string"
+                      },
+                      "tags": {
+                        "description": "The tags of the exported subnet group.",
+                        "type": "string"
+                      },
+                      "update-time": {
+                        "description": "The timestamp of updating the subnet group.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "address-grps",
+                      "address-objs",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "address-object": {
+                  "description": "The array of the exported subnets.",
+                  "items": {
+                    "description": "The object in the exported subnet.",
+                    "properties": {
+                      "address": {
+                        "description": "The address in the subnet.",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "The name of the subnet.",
+                        "type": "string"
+                      },
+                      "obj-type": {
+                        "description": "The type of the sunbet.",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "address",
+                      "name",
+                      "obj-type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "address-group",
+                "address-object"
+              ],
+              "type": "object"
+            },
+            "data-type": {
+              "description": "The return type of data, e.g. 'txt'.",
+              "type": "string"
+            },
+            "length": {
+              "description": "Length of the returned data stream.",
+              "type": "number"
+            }
+          },
+          "required": [
+            "length",
+            "data",
+            "data-type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.subnet.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "conflict-option": {
+                "default": "rename",
+                "description": "When the importing object has the name conflict with an local object, rename the importing object, replace the local object, or skip importing the object.",
+                "enum": [
+                  "rename",
+                  "replace",
+                  "skip"
+                ],
+                "example": "rename",
+                "type": "string"
+              },
+              "data": {
+                "description": "Data stream in txt format or base64 encoded zip format.",
+                "properties": {
+                  "address-group": {
+                    "description": "The array of the importing subnet groups.",
+                    "items": {
+                      "description": "The object in the importing subnet group.",
+                      "properties": {
+                        "address-grps": {
+                          "description": "The subnet groups referred in the importing subnet group.",
+                          "items": {
+                            "description": "The objects in the referred subnet group.",
+                            "properties": {
+                              "name": {
+                                "description": "The name of the referred subnet group.",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "address-objs": {
+                          "description": "The subnets referred in the importing subnet group.",
+                          "items": {
+                            "description": "The objects in the referred subnet.",
+                            "properties": {
+                              "name": {
+                                "description": "The name of the referred subnet.",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "create-time": {
+                          "description": "The timestamp of creating the subnet group.",
+                          "type": "string"
+                        },
+                        "discription": {
+                          "description": "The discription of the importing subnet group.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "The name of the importing subnet group.",
+                          "type": "string"
+                        },
+                        "tags": {
+                          "description": "The tags of the importing subnet group.",
+                          "type": "string"
+                        },
+                        "update-time": {
+                          "description": "The timestamp of updating the subnet group.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "address-grps",
+                        "address-objs",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "address-object": {
+                    "description": "The array of the importing subnets.",
+                    "items": {
+                      "description": "The object in the importing subnet.",
+                      "properties": {
+                        "address": {
+                          "description": "The address in the subnet.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "The name of the subnet.",
+                          "type": "string"
+                        },
+                        "obj-type": {
+                          "description": "The type of the sunbet.",
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "address",
+                        "name",
+                        "obj-type"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "address-group",
+                  "address-object"
+                ],
+                "type": "object"
+              },
+              "data-type": {
+                "default": "txt",
+                "description": "The format of the importing data.",
+                "enum": [
+                  "zip/base64",
+                  "txt"
+                ],
+                "example": "txt",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/subnet/import"
+                ],
+                "example": "/soar/adom/root/subnet/import",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.subnet.import.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value describing importing status.",
+          "properties": {
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "soar.task.monitor.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "filter": {
+                "description": "Filtering expression.",
+                "example": "state<>'success' task-id='get_endpoint'",
+                "type": "string"
+              },
+              "instance-id": {
+                "description": "Instance ID to get.",
+                "type": "string"
+              },
+              "playbook-uuid": {
+                "description": "Playbook UUID to get. An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                "type": "string"
+              },
+              "sort-by": {
+                "description": "Sort by field.",
+                "items": {
+                  "properties": {
+                    "field": {
+                      "description": "Sortable field.",
+                      "example": "start-datetime",
+                      "type": "string"
+                    },
+                    "order": {
+                      "default": "asc",
+                      "description": "Sorting order, asc or desc.",
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ],
+                      "example": "asc",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "time-range": {
+                "description": "Time range for source data selection.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "example": "2019-07-03T17:16:35",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "example": "2019-07-02T17:16:35",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ],
+                "type": "object"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/soar/adom/<adom-name>/task/monitor"
+                ],
+                "example": "/soar/adom/SOAR/task/monitor",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "playbook-uuid",
+              "time-range"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "soar.task.monitor.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to the get method.",
+          "properties": {
+            "data": {
+              "description": "automation rules' data.",
+              "items": {
+                "properties": {
+                  "end-datetime": {
+                    "description": "Ending date time of a task",
+                    "type": "string"
+                  },
+                  "playbook-name": {
+                    "description": "Playbook name associated with a task",
+                    "type": "string"
+                  },
+                  "playbook-uuid": {
+                    "description": "Playbook UUID associated with a task, An unique identifier of a playbook. 32 hexadecimal digits is displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters",
+                    "type": "string"
+                  },
+                  "start-datetime": {
+                    "description": "Starting date time of a task",
+                    "type": "string"
+                  },
+                  "state": {
+                    "description": "state of a task",
+                    "enum": [
+                      "success",
+                      "running",
+                      "failed",
+                      "upstream_failed",
+                      "skipped",
+                      "queued",
+                      "scheduled",
+                      "up_for_retry",
+                      "up_for_reschedule"
+                    ],
+                    "type": "string"
+                  },
+                  "task-id": {
+                    "description": "Task ID",
+                    "type": "string"
+                  },
+                  "task-name": {
+                    "description": "Task name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "playbook-uuid",
+                  "playbook-name",
+                  "task-id",
+                  "task-name",
+                  "state",
+                  "start-datetime",
+                  "end-datetime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Error code of the query",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Error message of the query",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data",
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "host": "172.16.79.72",
+  "info": {
+    "description": "Documentation for FortiAnalyzer JSON API<br/><br/>This daemon controls main system functions, including log in and log out. All APIs for this module are under the prefix <b>/sys/</b>.",
+    "title": "FortiAnalyzer JSON API Documentation",
+    "version": "7.4 (Build 2358)"
+  },
+  "paths": {
+    "/soar/config/connectors (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add connectors configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/connectors"
+        ]
+      }
+    },
+    "/soar/config/connectors (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update connectors configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.update.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/connectors"
+        ]
+      }
+    },
+    "/soar/config/connectors/<connector-uuid> (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete connectors configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.connector-uuid.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.connector-uuid.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/connectors/<connector-uuid>"
+        ]
+      }
+    },
+    "/soar/config/connectors/<connector-uuid> (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request to get connectors configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.connector-uuid.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.connectors.connector-uuid.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/connectors/<connector-uuid>"
+        ]
+      }
+    },
+    "/soar/config/playbooks (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add playbooks configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/playbooks"
+        ]
+      }
+    },
+    "/soar/config/playbooks (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update playbooks configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.update.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/playbooks"
+        ]
+      }
+    },
+    "/soar/config/playbooks/<playbook-uuid> (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete playbooks configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.playbook-uuid.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.playbook-uuid.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/playbooks/<playbook-uuid>"
+        ]
+      }
+    },
+    "/soar/config/playbooks/<playbook-uuid> (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request to get playbooks configuration.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.playbook-uuid.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.config.playbooks.playbook-uuid.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/config/playbooks/<playbook-uuid>"
+        ]
+      }
+    },
+    "/soar/fos-connector/automation-rules (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get FOS-connector automation rules.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.fos-connector.automation-rules.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.fos-connector.automation-rules.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/fos-connector/automation-rules"
+        ]
+      }
+    },
+    "/soar/playbook/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting playbooks.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.export.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/playbook/export"
+        ]
+      }
+    },
+    "/soar/playbook/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing playbooks.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.import.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/playbook/import"
+        ]
+      }
+    },
+    "/soar/playbook/run (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Start a task to run a playbook.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.run.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.run.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/playbook/run"
+        ]
+      }
+    },
+    "/soar/playbook/run (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete playbook run.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.run.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.run.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/playbook/run"
+        ]
+      }
+    },
+    "/soar/playbook/run (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get playbook information.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.run.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.playbook.run.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/playbook/run"
+        ]
+      }
+    },
+    "/soar/subnet/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting subnets and subnet groups.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.subnet.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.subnet.export.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/subnet/export"
+        ]
+      }
+    },
+    "/soar/subnet/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing subnet and subnet groups.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.subnet.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.subnet.import.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/subnet/import"
+        ]
+      }
+    },
+    "/soar/task/monitor (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get task information.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/soar.task.monitor.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/soar.task.monitor.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/soar/task/monitor"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Config connectors.",
+      "name": "/soar/config/connectors"
+    },
+    {
+      "description": "Config connectors by connector UUID.",
+      "name": "/soar/config/connectors/<connector-uuid>"
+    },
+    {
+      "description": "Config playbooks.",
+      "name": "/soar/config/playbooks"
+    },
+    {
+      "description": "Config playbooks by playbook UUID.",
+      "name": "/soar/config/playbooks/<playbook-uuid>"
+    },
+    {
+      "description": "Get FOS-connector automation rules.",
+      "name": "/soar/fos-connector/automation-rules"
+    },
+    {
+      "description": "Start playbook requests.",
+      "name": "/soar/playbook/run"
+    },
+    {
+      "description": "Get task information.",
+      "name": "/soar/task/monitor"
+    },
+    {
+      "description": "Export playbooks.",
+      "name": "/soar/playbook/export"
+    },
+    {
+      "description": "Import playbooks.",
+      "name": "/soar/playbook/import"
+    },
+    {
+      "description": "Export subnets and subnet groups.",
+      "name": "/soar/subnet/export"
+    },
+    {
+      "description": "Import subnets and subnet groups.",
+      "name": "/soar/subnet/import"
+    }
+  ],
+  "x-service-type": "json-rpc"
+}

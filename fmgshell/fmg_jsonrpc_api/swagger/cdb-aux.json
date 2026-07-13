@@ -1,0 +1,5951 @@
+{
+	"swagger": "2.0",
+	"x-service-type": "json-rpc",
+	"info": {
+		"title": "FortiManager JSON API Documentation",
+		"description": "Documentation for FortiManager JSON API<br\/><br\/>This module is responsible for the configuration of managed devices. FortiManager has multiple configuration sets:<br\/><ul><li><b>Global (\/pm\/config\/global\/)<\/b> scope is all ADOMs, and configurations are copied to ADOM during global package assignment.<\/li><li><b>ADOM (\/pm\/config\/adom\/)<\/b> configurations are managed by packages and templates. Each template and package have their scope restricted to the a subset of the ADOM's devices that are assigned to the package, and configurations are copied down to device during install.<\/li><li><b>Device (\/pm\/config\/device\/global\/, \/pm\/config\/device\/vdom\/)<\/b> scope is one device only.<\/li><\/ul><br\/>Whenever configuration for <b>Global<\/b> or <b>ADOM<\/b> is modified, it will eventually be copied to <b>Device<\/b> config database after next installation. A few selected device-level objects are listed in this documentation. For other objects that are not supported by higher-level configuration sets, JSON requests to directly access and modify the configuration at the <b>Device<\/b> level can be done by a linear translation of FGT CLI object paths. Depending on OS version and platform type, the availability of objects and attributes will be different on different devices.<br\/><br\/>An example at the end of this section in documentation shows how FGT CLI translation works.",
+		"version": "7.4.2" 
+	},
+	"basePath": "\/jsonrpc",
+	"schemes": [
+		"https" 
+	],
+	"consumes": [
+		"application\/json" 
+	],
+	"produces": [
+		"application\/json" 
+	],
+	"tags": [
+		{
+			"name": "\/pm\/config\/_adom\/options",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_application\/list",
+			"description": "Retrieve a list of application objects." 
+		},
+		{
+			"name": "\/pm\/config\/_category\/list",
+			"description": "Retrieve a list of FortiGuard category objects." 
+		},
+		{
+			"name": "\/pm\/config\/_data\/tablesize",
+			"description": "Get maximum tablesize of table categories." 
+		},
+		{
+			"name": "\/pm\/config\/_data\/tablesize\/faz",
+			"description": "Get tablesize of FortiAnalyzer CLI categories." 
+		},
+		{
+			"name": "\/pm\/config\/_data\/tablesize\/fmg",
+			"description": "Get tablesize of FortiManager CLI categories." 
+		},
+		{
+			"name": "\/pm\/config\/_data\/tablesize\/fos",
+			"description": "Get tablesize of FortiOS CLI categories (adom values only)." 
+		},
+		{
+			"name": "\/pm\/config\/_data\/tablesize\/log",
+			"description": "Get tablesize of Sql-report categories." 
+		},
+		{
+			"name": "\/pm\/config\/_devprof\/import",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta\/reference",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta_fields\/firewall\/address",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta_fields\/firewall\/addrgrp",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta_fields\/firewall\/policy",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta_fields\/firewall\/service\/custom",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_meta_fields\/firewall\/service\/group",
+			"description": "" 
+		},
+		{
+			"name": "\/pm\/config\/_package\/status",
+			"description": "Get device package\/template status, or global package assign status.  Optionally specify device and vdom name in the url to filter response by device." 
+		},
+		{
+			"name": "\/pm\/config\/_reset\/database",
+			"description": "Reset Global ADOM to a specific version.<br\/><br\/>NOTE: This operation will erase all data in Global database!" 
+		},
+		{
+			"name": "\/pm\/config\/_rule\/list",
+			"description": "Retrieve a list of rule objects." 
+		},
+		{
+			"name": "\/pm\/config\/_upgrade",
+			"description": "Upgrade an ADOM to the next version." 
+		},
+		{
+			"name": "\/pm\/config\/_workspace\/commit",
+			"description": "Commit changes to an ADOM." 
+		},
+		{
+			"name": "\/pm\/config\/_workspace\/lock",
+			"description": "Lock an ADOM in workspace mode." 
+		},
+		{
+			"name": "\/pm\/config\/_workspace\/unlock",
+			"description": "Unlock an ADOM. If this command is used before a commit, all changes will be discarded." 
+		}
+	],
+	"definitions": {
+		"common.result.object": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"message": {
+					"type": "string" 
+				}
+			}
+		},
+		"common.scope.object": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string" 
+					},
+					"vdom": {
+						"type": "string" 
+					}
+				}
+			}
+		},
+		"pm.config._adom.options": {
+			"type": "object",
+			"properties": {
+				"assign_excluded": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"package list": {
+					"$ref": "#\/definitions\/common.scope.object" 
+				},
+				"specify_assign_pkg_list": {
+					"type": "integer",
+					"format": "int32" 
+				}
+			}
+		},
+		"pm.config._application.list": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._category.list": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._devprof.import": {
+			"type": "object",
+			"properties": {
+				"device": {
+					"type": "string",
+					"format": "datasource" 
+				},
+				"devprof": {
+					"type": "string",
+					"format": "datasource" 
+				}
+			}
+		},
+		"pm.config._meta.reference": {
+			"type": "object",
+			"properties": {
+				"package list": {
+					"$ref": "#\/definitions\/common.scope.object" 
+				}
+			}
+		},
+		"pm.config._meta_fields.firewall.address": {
+			"type": "object",
+			"properties": {
+				"importance": {
+					"type": "string",
+					"enum": [
+						"optional",
+						"required" 
+					]
+				},
+				"length": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._meta_fields.firewall.addrgrp": {
+			"type": "object",
+			"properties": {
+				"importance": {
+					"type": "string",
+					"enum": [
+						"optional",
+						"required" 
+					]
+				},
+				"length": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._meta_fields.firewall.central-snat-map": {
+			"type": "object",
+			"properties": {
+				"importance": {
+					"type": "string",
+					"enum": [
+						"optional",
+						"required" 
+					]
+				},
+				"length": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._meta_fields.firewall.policy": {
+			"type": "object",
+			"properties": {
+				"importance": {
+					"type": "string",
+					"enum": [
+						"optional",
+						"required" 
+					]
+				},
+				"length": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._meta_fields.firewall.service.custom": {
+			"type": "object",
+			"properties": {
+				"importance": {
+					"type": "string",
+					"enum": [
+						"optional",
+						"required" 
+					]
+				},
+				"length": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._meta_fields.firewall.service.group": {
+			"type": "object",
+			"properties": {
+				"importance": {
+					"type": "string",
+					"enum": [
+						"optional",
+						"required" 
+					]
+				},
+				"length": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._package.status": {
+			"type": "object",
+			"properties": {
+				"stype": {
+					"type": "string",
+					"description": "Subtype for \"template\" package type. If not specified, status for all subtypes are fetched.",
+					"enum": [
+						"_ipsec",
+						"_router_static",
+						"_cst",
+						"_sdwan_overlay",
+						"_ips_setting",
+						"_fap_setting",
+						"router_bgp",
+						"gl_ips_sensor" 
+					]
+				},
+				"type": {
+					"type": "string",
+					"description": "Package or template type. Assume \"policy package\" if not specified.",
+					"default": "policy",
+					"enum": [
+						"policy",
+						"devprof",
+						"ecprof",
+						"crprof",
+						"cert",
+						"wtp",
+						"wanprof",
+						"fsp",
+						"fext",
+						"template",
+						"fwmprof",
+						"tmplgrp",
+						"fab-auth" 
+					],
+					"example": "policy" 
+				}
+			}
+		},
+		"pm.config._reset.database": {
+			"type": "object",
+			"properties": {
+				"mr": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Integer major release value (eg. 700 or 7)." 
+				}
+			}
+		},
+		"pm.config._rule.list": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"pm.config._upgrade": {
+			"type": "object",
+			"properties": {
+				
+			}
+		},
+		"resp.pm.config._package.status": {
+			"type": "object",
+			"properties": {
+				"adom": {
+					"type": "string",
+					"format": "string",
+					"description": "Adom name for global assignment result." 
+				},
+				"dev": {
+					"type": "string",
+					"format": "string",
+					"description": "Device name for device package\/template assignment result." 
+				},
+				"pkg": {
+					"type": "string",
+					"format": "string",
+					"description": "Package or template path and name." 
+				},
+				"status": {
+					"type": "string",
+					"format": "string",
+					"description": "Status string for the package or template assignment." 
+				},
+				"stype": {
+					"type": "string",
+					"description": "Subtype for \"template\" package type.",
+					"enum": [
+						"_ipsec",
+						"_router_static",
+						"_cst",
+						"_sdwan_overlay",
+						"_ips_setting",
+						"_fap_setting",
+						"router_bgp",
+						"gl_ips_sensor" 
+					]
+				},
+				"type": {
+					"type": "string",
+					"description": "Package or template type. If attribute not returned in the response, the type would be \"policy package\".",
+					"default": "policy",
+					"enum": [
+						"policy",
+						"devprof",
+						"ecprof",
+						"crprof",
+						"cert",
+						"wtp",
+						"wanprof",
+						"fsp",
+						"fext",
+						"template",
+						"fwmprof",
+						"tmplgrp",
+						"fab-auth" 
+					],
+					"example": "policy" 
+				},
+				"vdom": {
+					"type": "string",
+					"format": "string",
+					"description": "Device vdom name for device package\/template assignment result." 
+				}
+			}
+		},
+		"resp.pm.config._upgrade": {
+			"type": "object",
+			"properties": {
+				"task": {
+					"type": "string",
+					"format": "datasource" 
+				}
+			}
+		}
+	},
+	"paths": {
+		"\/pm\/config\/global\/_upgrade (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._upgrade" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_upgrade" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.pm.config._upgrade" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_upgrade" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_upgrade" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_upgrade (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._upgrade" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_upgrade" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.pm.config._upgrade" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_upgrade" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_upgrade" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_reset\/database (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._reset.database" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_reset\/database" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_reset\/database" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_reset\/database" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_workspace\/lock (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_workspace\/lock" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_workspace\/lock" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_workspace\/lock" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_workspace\/lock (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_workspace\/lock" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_workspace\/lock" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_workspace\/lock" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_workspace\/unlock (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_workspace\/unlock" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_workspace\/unlock" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_workspace\/unlock" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_workspace\/unlock (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_workspace\/unlock" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_workspace\/unlock" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_workspace\/unlock" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_workspace\/commit (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_workspace\/commit" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_workspace\/commit" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_workspace\/commit" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_workspace\/commit (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_workspace\/commit" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_workspace\/commit" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_workspace\/commit" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_adom\/options (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_adom\/options" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._adom.options" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_adom\/options" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_adom\/options" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_category\/list (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_category\/list" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._category.list" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_category\/list" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_category\/list" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_category\/list (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_category\/list" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._category.list" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_category\/list" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_category\/list" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_application\/list (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_application\/list" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._application.list" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_application\/list" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_application\/list" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_application\/list (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_application\/list" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._application.list" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_application\/list" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_application\/list" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_rule\/list (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_rule\/list" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._rule.list" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_rule\/list" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_rule\/list" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_rule\/list (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_rule\/list" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._rule.list" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_rule\/list" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_rule\/list" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_devprof\/import (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._devprof.import" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_devprof\/import" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_devprof\/import" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_devprof\/import" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_package\/status (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._package.status" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_package\/status" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.pm.config._package.status" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_package\/status" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_package\/status" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_package\/status (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._package.status" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_package\/status" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.pm.config._package.status" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_package\/status" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_package\/status" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_package\/status\/{device_name}\/{vdom_name} (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "device_name",
+						"in": "path",
+						"description": "Optional device filter.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom_name",
+						"in": "path",
+						"description": "Optional device vdom filter.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._package.status" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_package\/status\/{device_name}\/{vdom_name}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.pm.config._package.status" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_package\/status\/{device_name}\/{vdom_name}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_package\/status" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_data\/tablesize (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_data\/tablesize (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_data\/tablesize\/fos (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/fos" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/fos" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/fos" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_data\/tablesize\/fos (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/fos" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/fos" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/fos" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_data\/tablesize\/fmg (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/fmg" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/fmg" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/fmg" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_data\/tablesize\/fmg (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/fmg" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/fmg" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/fmg" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_data\/tablesize\/log (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/log" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/log" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/log" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_data\/tablesize\/log (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/log" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/log" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/log" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_data\/tablesize\/faz (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/faz" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_data\/tablesize\/faz" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/faz" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_data\/tablesize\/faz (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/faz" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_data\/tablesize\/faz" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_data\/tablesize\/faz" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/address (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.address" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/address" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/address (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.address" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/address" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/address (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.address" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/address" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/address (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.address" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/address" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/address (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.address" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/address" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/address" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/addrgrp (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.addrgrp" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/addrgrp (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.addrgrp" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/addrgrp (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.addrgrp" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/addrgrp (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.addrgrp" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/addrgrp (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.addrgrp" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/addrgrp" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/custom (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.custom" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/custom (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.custom" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/custom (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.custom" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/custom (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.custom" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/custom (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.custom" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/custom" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/group (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.group" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/group (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.group" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/group (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.group" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/group (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.group" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/service\/group (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.service.group" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/service\/group" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/policy (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.policy" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/policy" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/policy (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.policy" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/policy" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/policy (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.policy" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/policy" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/policy (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.policy" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/policy" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/policy (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.policy" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/policy" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/policy" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/central-snat-map (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.central-snat-map" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/central-snat-map (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.central-snat-map" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/central-snat-map (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.central-snat-map" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/central-snat-map (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.central-snat-map" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+				]
+			}
+		},
+		"\/pm\/config\/_meta_fields\/firewall\/central-snat-map (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config._meta_fields.firewall.central-snat-map" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta_fields\/firewall\/central-snat-map" 
+				]
+			}
+		},
+		"\/pm\/config\/global\/_meta\/reference (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._meta.reference" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_meta\/reference" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/global\/_meta\/reference" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta\/reference" 
+				]
+			}
+		},
+		"\/pm\/config\/adom\/{adom}\/_meta\/reference (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "adom",
+						"in": "path",
+						"description": "ADOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config._meta.reference" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_meta\/reference" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/adom\/{adom}\/_meta\/reference" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/_meta\/reference" 
+				]
+			}
+		}
+	}
+}

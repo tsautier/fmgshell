@@ -1,0 +1,2436 @@
+{
+  "basePath": "/jsonrpc",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "incidentmgmt.attachment.attachid.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachsrc": {
+                "description": "Attachment Source.",
+                "enum": [
+                  "manual",
+                  "playbook"
+                ],
+                "type": "string"
+              },
+              "attachsrcid": {
+                "description": "User name for manual type attachment source, playbook UUID for playbook.",
+                "type": "string"
+              },
+              "attachsrctrigger": {
+                "description": "Attachment trigger information.",
+                "type": "string"
+              },
+              "data": {
+                "description": "Any attachment data in json format.",
+                "type": "string"
+              },
+              "lastrevision": {
+                "description": "The version to check before save.",
+                "type": "number"
+              },
+              "lastuser": {
+                "description": "User name who updated the attachment.",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/attachment/<attachid>"
+                ],
+                "example": "/incidentmgmt/adom/root/attachment/<attachid>",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.attachment.attachid.update.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to update method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The update status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The update status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.attachments.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachments": {
+                "description": "A structure that holds multiple attachments",
+                "items": {
+                  "properties": {
+                    "attachsrc": {
+                      "description": "Attachment Source.",
+                      "enum": [
+                        "manual",
+                        "playbook"
+                      ],
+                      "type": "string"
+                    },
+                    "attachsrcid": {
+                      "description": "User name for manual type attachment source, playbook UUID for playbook.",
+                      "type": "string"
+                    },
+                    "attachsrctrigger": {
+                      "description": "Attachment trigger information.",
+                      "type": "string"
+                    },
+                    "attachtype": {
+                      "description": "The attachment type.",
+                      "enum": [
+                        "alertevent",
+                        "note",
+                        "file",
+                        "report"
+                      ],
+                      "type": "string"
+                    },
+                    "data": {
+                      "description": "Any attachment data in json format. For attachtype-report, it at least includes report-id, i.e, report's uuid. For attachtype-file, it at least includes file name.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "attachtype",
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "incid": {
+                "description": "The incident ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "lastuser": {
+                "description": "User name who added or updated the attachment.",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/attachments"
+                ],
+                "example": "/incidentmgmt/adom/root/attachments",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid",
+              "attachments"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.attachments.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to add method.",
+          "properties": {
+            "attachids": {
+              "description": "A structure that holds attachment IDs.",
+              "items": {
+                "description": "New assigned attachment ID.",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "attachids"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.attachments.count.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachtype": {
+                "description": "The attachment type.",
+                "enum": [
+                  "alertevent",
+                  "log",
+                  "comment",
+                  "logsearchfilter",
+                  "uploadfile",
+                  "report"
+                ],
+                "type": "string"
+              },
+              "incid": {
+                "description": "The incident ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/attachments/count"
+                ],
+                "example": "/incidentmgmt/adom/root/attachments/count",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.attachments.count.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "description": "The number of attachments.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.attachments.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachids": {
+                "description": "A structure that holds attachment IDs.",
+                "items": {
+                  "description": "The attachment ID.",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "incid": {
+                "description": "The incidnet ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/attachments"
+                ],
+                "example": "/incidentmgmt/adom/root/attachments",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.attachments.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to delete method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The delete status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The delete status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.attachments.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachtype": {
+                "description": "The attachment type.",
+                "enum": [
+                  "alertevent",
+                  "note",
+                  "file",
+                  "report"
+                ],
+                "type": "string"
+              },
+              "incid": {
+                "description": "The incident ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "limit": {
+                "default": 50,
+                "description": "The maximun number of records to get.",
+                "example": 50,
+                "maximum": 2000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "The offset of records to get.",
+                "example": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/attachments"
+                ],
+                "example": "/incidentmgmt/adom/root/attachments",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.attachments.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Attachment entries.",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachid": {
+                "description": "The attachment ID.",
+                "type": "string"
+              },
+              "dvid": {
+                "description": "The device vdom ID.",
+                "type": "number"
+              },
+              "endpoint": {
+                "description": "The endpoint name.",
+                "type": "string"
+              },
+              "epid": {
+                "description": "The endpoint ID.",
+                "type": "number"
+              },
+              "epip": {
+                "description": "The endpoint's ip address.",
+                "type": "string"
+              },
+              "euid": {
+                "description": "The enduser ID.",
+                "type": "number"
+              },
+              "euname": {
+                "description": "The enduser's name.",
+                "type": "string"
+              },
+              "eventid": {
+                "description": "The event ID.",
+                "type": "string"
+              },
+              "fctuid": {
+                "description": "The endpoint's fctuid.",
+                "type": "string"
+              },
+              "incid": {
+                "description": "The incident ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "mac": {
+                "description": "The endpoint's mac address.",
+                "type": "string"
+              },
+              "notes": {
+                "description": "The notes.",
+                "type": "string"
+              },
+              "osname": {
+                "description": "The endpoint's operating system.",
+                "type": "string"
+              },
+              "osversion": {
+                "description": "The endpoint's operating system version.",
+                "type": "string"
+              },
+              "srcinfo": {
+                "description": "The source info.",
+                "type": "string"
+              },
+              "srctype": {
+                "description": "The incident epeu-history source type.",
+                "enum": [
+                  "manual-input",
+                  "auto-event-attachement",
+                  "manual-event-attachment",
+                  "auto-incident",
+                  "manual-incident"
+                ],
+                "type": "string"
+              },
+              "tags": {
+                "description": "The tags.",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/epeu-history"
+                ],
+                "example": "/incidentmgmt/adom/root/epeu-history",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to add method.",
+          "properties": {
+            "seqid": {
+              "description": "The incident epeu-history id.",
+              "type": "string"
+            },
+            "status": {
+              "description": "The command executed status.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.attachid.update.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to add method.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds updated incident ID and epeu-history ID.",
+              "items": {
+                "description": "The updated entry's incident ID and epeu-history ID.",
+                "properties": {
+                  "incid": {
+                    "description": "The updated entry's incident ID.",
+                    "type": "string"
+                  },
+                  "seqid": {
+                    "description": "The updated entry's seqid.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "The command executed status.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "incid": {
+                "description": "The incidnet ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "seqid": {
+                "description": "The incident epeu-history ID",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/epeu-history"
+                ],
+                "example": "/incidentmgmt/adom/root/epeu-history",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to delete method.",
+          "properties": {
+            "status": {
+              "description": "The command executed status.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "incid": {
+                "description": "The incident ID.",
+                "example": "IN12345678",
+                "type": "string"
+              },
+              "limit": {
+                "default": 50,
+                "description": "The maximun number of records to get.",
+                "example": 50,
+                "maximum": 2000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "The offset of records to get.",
+                "example": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/epeu-history"
+                ],
+                "example": "/incidentmgmt/adom/root/epeu-history",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds deleted incident ID and epeu-history ID.",
+              "items": {
+                "description": "The deleted entry's incident ID and epeu-history ID.",
+                "properties": {
+                  "incid": {
+                    "description": "The deleted entry's incident ID.",
+                    "type": "string"
+                  },
+                  "seqid": {
+                    "description": "The deleted entry's seqid.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "The command executed status.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.epeu-history.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachid": {
+                "description": "The attachment ID.",
+                "type": "string"
+              },
+              "dvid": {
+                "description": "The device vdom ID.",
+                "type": "number"
+              },
+              "endpoint": {
+                "description": "The endpoint name.",
+                "type": "string"
+              },
+              "epid": {
+                "description": "The endpoint ID.",
+                "type": "number"
+              },
+              "epip": {
+                "description": "The endpoint's ip address.",
+                "type": "string"
+              },
+              "euid": {
+                "description": "The enduser ID.",
+                "type": "number"
+              },
+              "euname": {
+                "description": "The enduser's name.",
+                "type": "string"
+              },
+              "eventid": {
+                "description": "The event ID.",
+                "type": "string"
+              },
+              "fctuid": {
+                "description": "The endpoint's fctuid.",
+                "type": "string"
+              },
+              "mac": {
+                "description": "The endpoint's mac address.",
+                "type": "string"
+              },
+              "notes": {
+                "description": "The notes.",
+                "type": "string"
+              },
+              "osname": {
+                "description": "The endpoint's operating system.",
+                "type": "string"
+              },
+              "osversion": {
+                "description": "The endpoint's operating system version.",
+                "type": "string"
+              },
+              "seqid": {
+                "description": "The incident epeu-history ID.",
+                "example": "1589583674607000",
+                "type": "string"
+              },
+              "srcinfo": {
+                "description": "The source info.",
+                "type": "string"
+              },
+              "srctype": {
+                "description": "The incident epeu-history source type.",
+                "enum": [
+                  "manual-input",
+                  "auto-event-attachement",
+                  "manual-event-epeu-history",
+                  "auto-incident",
+                  "manual-incident"
+                ],
+                "type": "string"
+              },
+              "tags": {
+                "description": "The tags.",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/epeu-history"
+                ],
+                "example": "/incidentmgmt/adom/root/epeu-history",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "seqid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.incident.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "category": {
+                "description": "The incident category.",
+                "type": "string"
+              },
+              "description": {
+                "description": "The incident description.",
+                "type": "string"
+              },
+              "endpoint": {
+                "description": "The endpoint name.",
+                "type": "string"
+              },
+              "epid": {
+                "description": "The endpoint ID.",
+                "type": "number"
+              },
+              "euid": {
+                "description": "The enduser ID.",
+                "type": "number"
+              },
+              "reporter": {
+                "description": "The reporter name of the incident.",
+                "type": "string"
+              },
+              "severity": {
+                "description": "The severity level.",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The incident status.",
+                "enum": [
+                  "draft",
+                  "analysis",
+                  "response",
+                  "review",
+                  "closed",
+                  "cancelled"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/incident"
+                ],
+                "example": "/incidentmgmt/adom/root/incident",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "reporter",
+              "endpoint",
+              "category"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.incident.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to add method.",
+          "properties": {
+            "incid": {
+              "description": "A new assigned incident ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "incid"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.incident.incid.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "category": {
+                "description": "The incident category.",
+                "type": "string"
+              },
+              "description": {
+                "description": "The incident description.",
+                "type": "string"
+              },
+              "endpoint": {
+                "description": "The endpoint name.",
+                "type": "string"
+              },
+              "epid": {
+                "description": "The endpoint ID.",
+                "type": "number"
+              },
+              "euid": {
+                "description": "The enduser ID.",
+                "type": "number"
+              },
+              "lastrevision": {
+                "description": "The version to check before save.",
+                "type": "number"
+              },
+              "lastuser": {
+                "description": "The last user of the incident.",
+                "type": "string"
+              },
+              "severity": {
+                "description": "The severity level.",
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The incident status.",
+                "enum": [
+                  "draft",
+                  "analysis",
+                  "response",
+                  "review",
+                  "closed",
+                  "cancelled"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/incident/<incid>"
+                ],
+                "example": "/incidentmgmt/adom/root/incident/<incid>",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.incident.incid.update.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to update method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The update status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The update status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.incidents.count.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "filter": {
+                "description": "The query filter.",
+                "example": "",
+                "type": "string"
+              },
+              "incids": {
+                "description": "The incident ID list.",
+                "items": {
+                  "description": "incident ID.",
+                  "example": "IN12345678",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/incidents/count"
+                ],
+                "example": "/incidentmgmt/adom/root/incidents/count",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.incidents.count.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "description": "The number of incidents.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "masked-fields": {
+              "description": "datamasked field list.",
+              "items": {
+                "description": "field name.",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.incidents.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "incids": {
+                "description": "A structure that holds incident IDs, can not be empty.",
+                "items": {
+                  "description": "The incident ID.",
+                  "example": "IN12345678",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/incidents"
+                ],
+                "example": "/incidentmgmt/adom/root/incidents",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "incid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.incidents.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to delete method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The delete status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The delete status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "incidentmgmt.incidents.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "detail-level": {
+                "description": "The detail level of return data, basic, standard(default) or extended.",
+                "type": "string"
+              },
+              "filter": {
+                "description": "The query filter.",
+                "example": "",
+                "type": "string"
+              },
+              "incids": {
+                "description": "The incident ID list.",
+                "items": {
+                  "description": "incident ID.",
+                  "example": "IN12345678",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "limit": {
+                "default": 50,
+                "description": "The maximun number of records to get.",
+                "example": 50,
+                "maximum": 2000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "The offset of records to get.",
+                "example": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "sort-by": {
+                "description": "Sort by field.",
+                "items": {
+                  "properties": {
+                    "field": {
+                      "description": "Sortable field.",
+                      "type": "string"
+                    },
+                    "order": {
+                      "default": "ASC",
+                      "description": "Sorting order, ASC or DESC.",
+                      "example": "ASC",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/incidentmgmt/adom/<adom-name>/incidents"
+                ],
+                "example": "/incidentmgmt/adom/root/incidents",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "incidentmgmt.incidents.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Incident entries.",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "detail-level": {
+              "description": "The detail level of return data, basic, standard(default) or extended.",
+              "type": "string"
+            },
+            "masked-fields": {
+              "description": "datamasked field list.",
+              "items": {
+                "description": "field name.",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "host": "172.16.79.72",
+  "info": {
+    "description": "Documentation for FortiAnalyzer JSON API<br/><br/>This daemon controls main system functions, including log in and log out. All APIs for this module are under the prefix <b>/sys/</b>.",
+    "title": "FortiAnalyzer JSON API Documentation",
+    "version": "7.4 (Build 2358)"
+  },
+  "paths": {
+    "/incidentmgmt/attachment/<attachid> (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update an incident attachment.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachment.attachid.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachment.attachid.update.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/attachment/<attachid>"
+        ]
+      }
+    },
+    "/incidentmgmt/attachments (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add new incident attachments.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/attachments"
+        ]
+      }
+    },
+    "/incidentmgmt/attachments (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete some attachments.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/attachments"
+        ]
+      }
+    },
+    "/incidentmgmt/attachments (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an attachments list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/attachments"
+        ]
+      }
+    },
+    "/incidentmgmt/attachments/count (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get a count number of attachments.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.count.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.attachments.count.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/attachments/count"
+        ]
+      }
+    },
+    "/incidentmgmt/epeu-history (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add new incident epeu-history.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/epeu-history"
+        ]
+      }
+    },
+    "/incidentmgmt/epeu-history (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete some epeu-history.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/epeu-history"
+        ]
+      }
+    },
+    "/incidentmgmt/epeu-history (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an epeu-history list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/epeu-history"
+        ]
+      }
+    },
+    "/incidentmgmt/epeu-history (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update an incident epeu-history.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.epeu-history.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/epeu-history"
+        ]
+      }
+    },
+    "/incidentmgmt/incident (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add a new incident.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incident.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incident.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/incident"
+        ]
+      }
+    },
+    "/incidentmgmt/incident/<incid> (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update an incident.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incident.incid.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incident.incid.update.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/incident/<incid>"
+        ]
+      }
+    },
+    "/incidentmgmt/incidents (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete some incidents.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incidents.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incidents.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/incidents"
+        ]
+      }
+    },
+    "/incidentmgmt/incidents (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an incidents list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incidents.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incidents.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/incidents"
+        ]
+      }
+    },
+    "/incidentmgmt/incidents/count (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get a count number of incidents.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incidents.count.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/incidentmgmt.incidents.count.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/incidentmgmt/incidents/count"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Add an incident.",
+      "name": "/incidentmgmt/incident"
+    },
+    {
+      "description": "Update an incident.",
+      "name": "/incidentmgmt/incident/<incid>"
+    },
+    {
+      "description": "Handle incidents.",
+      "name": "/incidentmgmt/incidents"
+    },
+    {
+      "description": "Count incidents.",
+      "name": "/incidentmgmt/incidents/count"
+    },
+    {
+      "description": "Handle incident attachments.",
+      "name": "/incidentmgmt/attachments"
+    },
+    {
+      "description": "Update incident attachments.",
+      "name": "/incidentmgmt/attachment/<attachid>"
+    },
+    {
+      "description": "Count incident attachments.",
+      "name": "/incidentmgmt/attachments/count"
+    },
+    {
+      "description": "Handle incident epeu-history.",
+      "name": "/incidentmgmt/epeu-history"
+    }
+  ],
+  "x-service-type": "json-rpc"
+}

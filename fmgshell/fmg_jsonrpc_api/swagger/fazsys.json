@@ -1,0 +1,1766 @@
+{
+  "basePath": "/jsonrpc",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "fazsys.enduser-avatar.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>Enduser Avatar</b>.",
+                "enum": [
+                  "/fazsys/adom/<adom-name>/enduser-avatar"
+                ],
+                "type": "string"
+              },
+              "user": {
+                "description": "A structure that hold the users info. One user is identified by ('epid' and 'euid') or ('name' and 'fctuid')",
+                "items": {
+                  "properties": {
+                    "epid": {
+                      "description": "Endpoint identifier.",
+                      "type": "string"
+                    },
+                    "euid": {
+                      "description": "User identifier.",
+                      "type": "string"
+                    },
+                    "fctuid": {
+                      "description": "The fctuid of the requested user, the name and fctuid together identify one user",
+                      "type": "string"
+                    },
+                    "fgtdevid": {
+                      "description": "The related fortigate device id.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "The user name, the name and fctuid together identify one user.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "fgtdevid"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "user"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.enduser-avatar.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "items": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "euid"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "name",
+                      "fctuid"
+                    ]
+                  }
+                ],
+                "properties": {
+                  "avatar": {
+                    "description": "Enduser avatar.",
+                    "type": "string"
+                  },
+                  "euid": {
+                    "description": "Enduser identifier.",
+                    "type": "string"
+                  },
+                  "fctuid": {
+                    "description": "Enduser fctuid.",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Enduser name.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "avatar"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.forticare.licinfo.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>Forticare License Information</b>.",
+                "enum": [
+                  "/fazsys/adom/<adom-name>/forticare/licinfo"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.forticare.licinfo.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "properties": {
+                "account_id": {
+                  "description": "FortiCare Account ID",
+                  "type": "string"
+                },
+                "company": {
+                  "description": "FortiCare Company",
+                  "type": "string"
+                },
+                "contract_list": {
+                  "description": "A structure that holds the list of contracts and number of contracts.",
+                  "properties": {
+                    "contracts": {
+                      "description": "A structure that holds the list of contracts.",
+                      "items": {
+                        "properties": {
+                          "contract": {
+                            "description": "contract content",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "nr_contract": {
+                      "description": "number of contracts in the list",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "industry": {
+                  "description": "FortiCare Industry",
+                  "type": "string"
+                },
+                "rawdata": {
+                  "description": "FortiCare Contract Rawdata",
+                  "type": "string"
+                },
+                "system_id": {
+                  "description": "FortiCare System ID",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.fonts.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "font": {
+                "description": "Font name, e.g. 'UnBatang', 'Open Sans', etc, filter for exporting font file.",
+                "example": [
+                  "UnBatang",
+                  "Open Sans"
+                ],
+                "items": {
+                  "description": "Font name",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/fonts/export"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.fonts.export.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to font file <b>export</b> method.",
+          "properties": {
+            "checksum": {
+              "description": "checksum in MD5.",
+              "type": "string"
+            },
+            "data": {
+              "description": "Data stream in base64 format.",
+              "type": "string"
+            },
+            "data-type": {
+              "description": "The return type of data, e.g. 'zip/base64'.",
+              "type": "string"
+            },
+            "length": {
+              "description": "Length of the returned data stream.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.fonts.font-name.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/fonts/<font-name>"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.fonts.font-name.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to delete method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The delete status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The delete status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.fonts.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "Font files in <b>Base64</b> format.",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/fonts/import"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.fonts.import.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value describing imported translation file status.",
+          "properties": {
+            "data": {
+              "description": "Imported font file status",
+              "items": {
+                "properties": {
+                  "imported": {
+                    "description": "imported status",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "font name",
+                    "type": "string"
+                  },
+                  "style": {
+                    "description": "font style",
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.fonts.list.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "font": {
+                "description": "Font name, e.g. 'UnBatang', 'Open Sans', etc, filter for exporting font file.",
+                "example": [
+                  "UnBatang",
+                  "Open Sans"
+                ],
+                "items": {
+                  "description": "Font name",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/fonts/list"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.fonts.list.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "system font entries.",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.translation-file.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "language": {
+                "description": "Language code list, e.g. 'en', 'zh', 'ja' etc, filter for exporting language translation file.",
+                "example": [
+                  "en",
+                  "zh"
+                ],
+                "items": {
+                  "description": "Language code",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/translation-file/export"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.translation-file.export.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to language translation file <b>export</b> method.",
+          "properties": {
+            "checksum": {
+              "description": "checksum in MD5.",
+              "type": "string"
+            },
+            "data": {
+              "description": "Data stream in base64 format.",
+              "type": "string"
+            },
+            "data-type": {
+              "description": "The return type of data, e.g. 'zip/base64'.",
+              "type": "string"
+            },
+            "length": {
+              "description": "Length of the returned data stream.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.translation-file.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "Language translation files in <b>Base64</b> format.",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/translation-file/import"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.translation-file.import.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value describing imported translation file status.",
+          "properties": {
+            "data": {
+              "description": "Imported language translation file status",
+              "items": {
+                "properties": {
+                  "imported": {
+                    "description": "imported status",
+                    "type": "string"
+                  },
+                  "language": {
+                    "description": "language code",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "language name",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.translation-file.language-code.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/translation-file/<language-code>"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.translation-file.language-code.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to delete method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The delete status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The delete status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.language.translation-file.list.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "language": {
+                "items": {
+                  "example": "en",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/fazsys/language/translation-file/list"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.language.translation-file.list.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "language translation file entries.",
+                "properties": {
+                  "language": {
+                    "description": "The language code.",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "The name of language.",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "The status of language.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "fazsys.monitor.logforward-status.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "id": {
+                "description": "An array of the log forwarding server ID. If the ID array is empty or omitted, status of all log forwarding servers will be returned.",
+                "items": {
+                  "description": "Log forwarding server ID.",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "The resource path to <b>log forwarding server status</b>.",
+                "enum": [
+                  "/fazsys/monitor/logforward-status"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "fazsys.monitor.logforward-status.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "properties": {
+                "id": {
+                  "description": "Log forwarding server ID.",
+                  "type": "number"
+                },
+                "lograte": {
+                  "description": "The average log rate (logs/sec) in the last 60 seconds.",
+                  "type": "number"
+                },
+                "status": {
+                  "description": "Log forwarding server status.",
+                  "enum": [
+                    "connected",
+                    "disconnected"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "status",
+                "lograte"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "description": "Status of the current task.",
+              "properties": {
+                "code": {
+                  "description": "Status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "host": "172.16.79.72",
+  "info": {
+    "description": "Documentation for FortiAnalyzer JSON API<br/><br/>This daemon controls main system functions, including log in and log out. All APIs for this module are under the prefix <b>/sys/</b>.",
+    "title": "FortiAnalyzer JSON API Documentation",
+    "version": "7.4 (Build 2358)"
+  },
+  "paths": {
+    "/fazsys/enduser-avatar (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get Enduser Avatar.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.enduser-avatar.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.enduser-avatar.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/enduser-avatar"
+        ]
+      }
+    },
+    "/fazsys/forticare/licinfo (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get FortiCare License Information.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.forticare.licinfo.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.forticare.licinfo.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/forticare/licinfo"
+        ]
+      }
+    },
+    "/fazsys/language/fonts/<font-name> (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete font.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.font-name.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.font-name.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/fonts/<font-name>"
+        ]
+      }
+    },
+    "/fazsys/language/fonts/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting font file.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.export.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/fonts/export"
+        ]
+      }
+    },
+    "/fazsys/language/fonts/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing fonts.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.import.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/fonts/import"
+        ]
+      }
+    },
+    "/fazsys/language/fonts/list (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get system fonts list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.list.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.fonts.list.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/fonts/list"
+        ]
+      }
+    },
+    "/fazsys/language/translation-file/<language-code> (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete language translation file.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.language-code.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.language-code.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/translation-file/<language-code>"
+        ]
+      }
+    },
+    "/fazsys/language/translation-file/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting language translation file.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.export.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/translation-file/export"
+        ]
+      }
+    },
+    "/fazsys/language/translation-file/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing language translation files.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.import.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/translation-file/import"
+        ]
+      }
+    },
+    "/fazsys/language/translation-file/list (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get language translation files list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.list.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.language.translation-file.list.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/language/translation-file/list"
+        ]
+      }
+    },
+    "/fazsys/monitor/logforward-status (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get Log Forwarding Server Status.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fazsys.monitor.logforward-status.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/fazsys.monitor.logforward-status.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/fazsys/monitor/logforward-status"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Get enduser avatar.",
+      "name": "/fazsys/enduser-avatar"
+    },
+    {
+      "description": "Get language translation files list.",
+      "name": "/fazsys/language/translation-file/list"
+    },
+    {
+      "description": "Handle language translation files.",
+      "name": "/fazsys/language/translation-file/<language-code>"
+    },
+    {
+      "description": "Import language translation files.",
+      "name": "/fazsys/language/translation-file/import"
+    },
+    {
+      "description": "Export language translation files.",
+      "name": "/fazsys/language/translation-file/export"
+    },
+    {
+      "description": "Get system fonts list (Not used).",
+      "name": "/fazsys/language/fonts/list"
+    },
+    {
+      "description": "Handle fonts.",
+      "name": "/fazsys/language/fonts/<font-name>"
+    },
+    {
+      "description": "Import fonts.",
+      "name": "/fazsys/language/fonts/import"
+    },
+    {
+      "description": "Export fonts.",
+      "name": "/fazsys/language/fonts/export"
+    },
+    {
+      "description": "Get FortiCare license information.",
+      "name": "/fazsys/forticare/licinfo"
+    },
+    {
+      "description": "Get log forwarding server status.",
+      "name": "/fazsys/monitor/logforward-status"
+    }
+  ],
+  "x-service-type": "json-rpc"
+}

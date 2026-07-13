@@ -1,0 +1,2124 @@
+{
+  "basePath": "/jsonrpc",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "ueba.endpoints.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "endpoints' data.",
+                "items": {
+                  "properties": {
+                    "devtype": {
+                      "description": "devtype of an endpoint. such as FortiGate, FortiClient, FortiMail, FortiWeb, FortiSandbox, FortiDDos, iPad, PC and etc.",
+                      "type": "string"
+                    },
+                    "hwfamily": {
+                      "description": "HW family of an endpoint.",
+                      "type": "string"
+                    },
+                    "hwversion": {
+                      "description": "HW version of an endpoint.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "identifier of an endpoint.",
+                      "properties": {
+                        "type": {
+                          "description": "type of identifier of an endpoint.",
+                          "enum": [
+                            "serialno",
+                            "mac",
+                            "fctuid"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "value of identifier of an endpoint.",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "description": "name of an endpoint",
+                      "type": "string"
+                    },
+                    "nic": {
+                      "description": "network interface card data of an endpoint.",
+                      "items": {
+                        "properties": {
+                          "ip": {
+                            "description": "ip address of an endpoint.",
+                            "example": "1.1.1.1",
+                            "type": "string"
+                          },
+                          "mac": {
+                            "description": "mac address of an endpoint.",
+                            "example": "06:09:0f:aa:BB:cc",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "osname": {
+                      "description": "OS name of an endpoint.",
+                      "type": "string"
+                    },
+                    "osversion": {
+                      "description": "OS version of an endpoint.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "nic"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endpoints"
+                ],
+                "example": "/ueba/adom/root/endpoints",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.endpoints.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to add method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Endpoint keys.",
+                "properties": {
+                  "detectkey": {
+                    "description": "key of an endpoint",
+                    "type": "string"
+                  },
+                  "detecttype": {
+                    "description": "by_mac, by_sno, or by_fctuid.",
+                    "type": "string"
+                  },
+                  "epid": {
+                    "description": "id of an endpoint.",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The add status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The add status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endpoints.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "detail-level": {
+                "default": "basic",
+                "description": "The level of details to get.",
+                "enum": [
+                  "simple",
+                  "basic",
+                  "standard"
+                ],
+                "example": "basic",
+                "type": "string"
+              },
+              "epids": {
+                "description": "The endpoint ID list.",
+                "items": {
+                  "description": "endpoint ID",
+                  "example": "1025",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "filter": {
+                "description": "The query filter.",
+                "example": "epname='OFFICE-PC1'",
+                "type": "string"
+              },
+              "limit": {
+                "default": 100000,
+                "description": "The maximun number of records to get.",
+                "example": 100000,
+                "maximum": 1000000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "The offset of records to get.",
+                "example": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "sort-by": {
+                "description": "Sort by field.",
+                "items": {
+                  "properties": {
+                    "field": {
+                      "description": "Sortable field. Standard detail-level supports fields: epid, epname, mac, epip, fctuid, osname, detecttype, firstseen, lastseen",
+                      "example": "epid",
+                      "type": "string"
+                    },
+                    "order": {
+                      "default": "ASC",
+                      "description": "Sorting order, ASC or DESC.",
+                      "example": "ASC",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "time-range": {
+                "description": "Time range for endpoints. (required if the epids field is not provided)",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ],
+                "type": "object"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endpoints"
+                ],
+                "example": "/ueba/adom/root/endpoints",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "time-range"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.endpoints.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset. (When detail-level is Standard)",
+              "items": {
+                "description": "Endpoint entries.",
+                "properties": {
+                  "Department": {
+                    "description": "Office of an endpoint.",
+                    "type": "string"
+                  },
+                  "attrupdate": {
+                    "description": "Infomation related to the last update.",
+                    "properties": {
+                      "devtype": {
+                        "description": "The log device of the last associated log.",
+                        "type": "string"
+                      },
+                      "lastupdate": {
+                        "description": "The timestamp of the last update in the Format of 'YYYY-MM-DD hh:mm:ss'.",
+                        "type": "string"
+                      },
+                      "logtype": {
+                        "description": "The log type of the last associated log.",
+                        "type": "string"
+                      },
+                      "loguid": {
+                        "description": "The log id of the last associated log.",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "detecttype": {
+                    "description": "The method of detecting an endpoint.",
+                    "enum": [
+                      "by_none",
+                      "by_fctuid",
+                      "by_mac",
+                      "by_ip",
+                      "by_sno"
+                    ],
+                    "type": "string"
+                  },
+                  "epdevtype": {
+                    "description": "Device type of an endpoint.",
+                    "type": "string"
+                  },
+                  "epid": {
+                    "description": "ID of an endpoint.",
+                    "type": "number"
+                  },
+                  "epip": {
+                    "description": "IP address of an endpoint.",
+                    "type": "string"
+                  },
+                  "epname": {
+                    "description": "Name of an endpoint.",
+                    "type": "string"
+                  },
+                  "eptag": {
+                    "description": "Tags of an endpoint.",
+                    "type": "string"
+                  },
+                  "fctuid": {
+                    "description": "FCT UUID of an endpoint.",
+                    "type": "string"
+                  },
+                  "firstseen": {
+                    "description": "The timestamp of the initial endpoint detection. Format: yyyy-mm-dd hh:mm:ss",
+                    "type": "string"
+                  },
+                  "iot-vuln-stats": {
+                    "description": "IoT vulnerabilities (vulnerabilities detected by FortiGate) statistics.",
+                    "properties": {
+                      "cnt_cri": {
+                        "description": "Number of critial severity IoT vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_hig": {
+                        "description": "Number of high severity IoT vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_low": {
+                        "description": "Number of low severity IoT vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_med": {
+                        "description": "Number of medium severity IoT vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_unk": {
+                        "description": "Number of unknown severity IoT vulnerabilities.",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "lastseen": {
+                    "description": "The timestamp of the last endpoint detection. Format: yyyy-mm-dd hh:mm:ss",
+                    "type": "string"
+                  },
+                  "mac": {
+                    "description": "Mac address of an endpoint.",
+                    "type": "string"
+                  },
+                  "office": {
+                    "description": "Office of an endpoint.",
+                    "type": "string"
+                  },
+                  "osname": {
+                    "description": "OS of an endpoint.",
+                    "type": "string"
+                  },
+                  "osversion": {
+                    "description": "OS version of an endpoint.",
+                    "type": "string"
+                  },
+                  "source": {
+                    "description": "The source(s) of detecting an endpoint",
+                    "items": {
+                      "description": "One source of detecting an endpoint. Format: <device name>/<interface>",
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "user": {
+                    "description": "User(s) detected on the endpoint",
+                    "items": {
+                      "description": "One user detected on the endpoint",
+                      "properties": {
+                        "euid": {
+                          "description": "ID of an enduser.",
+                          "type": "number"
+                        },
+                        "euname": {
+                          "description": "Name of an enduser.",
+                          "type": "string"
+                        },
+                        "lastseen": {
+                          "description": "The epoch timestamp of last seeing the enduser.",
+                          "type": "number"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "vuln-stats": {
+                    "description": "vulnerabilities (vulnerabilities detected by FortiClient) statistics.",
+                    "properties": {
+                      "cnt_cri": {
+                        "description": "Number of critial severity vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_hig": {
+                        "description": "Number of high severity vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_inf": {
+                        "description": "Number of informative severity vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_low": {
+                        "description": "Number of low severity vulnerabilities.",
+                        "type": "number"
+                      },
+                      "cnt_med": {
+                        "description": "Number of medium severity vulnerabilities.",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "epid"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                },
+                "total-endpoints": {
+                  "description": "The total number of endpoints that qualifies the search criteria.",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endpoints.stats..resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Endpoint stats entries.",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "descriptioin": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "descriptioin": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endpoints.stats.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "stats-item": {
+                "description": "an array of strings that holds the requested stats type.",
+                "items": {
+                  "description": "requested endpoint stat.",
+                  "enum": [
+                    "total-count",
+                    "new-count"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "time-range": {
+                "description": "Time range for endpoint stats.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endpoints/stats"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.endpoints.vuln..resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "A group of vulnerabilities associated with one epid.",
+                "properties": {
+                  "epid": {
+                    "description": "the epid of the asset having a vulnerability.",
+                    "type": "number"
+                  },
+                  "vuln-group": {
+                    "description": "Detailed vulnerability infomation associated with the given epid.",
+                    "properties": {
+                      "firmware": {
+                        "description": "firmware of a IoT object",
+                        "type": "string"
+                      },
+                      "model": {
+                        "description": "model of a IoT object",
+                        "type": "string"
+                      },
+                      "product": {
+                        "description": "product name of a IoT object",
+                        "type": "string"
+                      },
+                      "vendor": {
+                        "description": "vendor of a IoT object.",
+                        "type": "string"
+                      },
+                      "version-min": {
+                        "description": "version of a IoT object",
+                        "type": "string"
+                      },
+                      "vuln": {
+                        "description": "Detailed vulnerability infomation associated with the given IoT object.",
+                        "properties": {
+                          "description": {
+                            "description": "description of a vulnerability",
+                            "type": "string"
+                          },
+                          "references": {
+                            "description": "CVE number of a vulnerability",
+                            "type": "string"
+                          },
+                          "severity": {
+                            "description": "vulnerability severity ",
+                            "enum": [
+                              "Unknown",
+                              "Low",
+                              "Medium",
+                              "High",
+                              "Critical",
+                              "Info"
+                            ],
+                            "type": "string"
+                          },
+                          "signiture": {
+                            "description": "signiture of a vulnerability",
+                            "type": "number"
+                          },
+                          "type": {
+                            "description": "vulnerability type.",
+                            "type": "string"
+                          },
+                          "vulnid": {
+                            "description": "id of a vulnerability.",
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "vulnid",
+                          "type",
+                          "severity",
+                          "references",
+                          "description"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "epid",
+                  "vuln-group"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "descriptioin": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "descriptioin": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endpoints.vuln.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "detectby": {
+                "description": "The vulnerabilities detection source. 'FortiGate' by default.",
+                "enum": [
+                  "FortiClient",
+                  "FortiGate"
+                ],
+                "type": "string"
+              },
+              "epids": {
+                "description": "The endpoint ID list.",
+                "items": {
+                  "description": "endpoint ID",
+                  "example": "1025",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "filter": {
+                "description": "The query filter.",
+                "type": "string"
+              },
+              "limit": {
+                "default": 100000,
+                "description": "The maximun number of records to get.",
+                "example": 100000,
+                "maximum": 1000000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "The offset of records to get.",
+                "example": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "sort-by": {
+                "description": "Sort by field.",
+                "items": {
+                  "properties": {
+                    "field": {
+                      "description": "Sortable field.",
+                      "example": "epid",
+                      "type": "string"
+                    },
+                    "order": {
+                      "default": "ASC",
+                      "description": "Sorting order, ASC or DESC.",
+                      "example": "ASC",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endpoints/vuln"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.endusers.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "data": {
+                "description": "endusers' data.",
+                "items": {
+                  "properties": {
+                    "email": {
+                      "description": "email of an enduser.",
+                      "type": "string"
+                    },
+                    "employeeid": {
+                      "description": "employeeid of an enduser.",
+                      "type": "string"
+                    },
+                    "firstname": {
+                      "description": "firstname of an enduser.",
+                      "type": "string"
+                    },
+                    "gender": {
+                      "description": "gender of an enduser.",
+                      "type": "string"
+                    },
+                    "group": {
+                      "description": "group of an enduser, such as HR, finance.",
+                      "type": "string"
+                    },
+                    "homeaddr": {
+                      "description": "home address of an enduser.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "identifier of an enduser.",
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "description": "lastname of an enduser.",
+                      "type": "string"
+                    },
+                    "phone": {
+                      "description": "phone of an enduser.",
+                      "type": "string"
+                    },
+                    "socialid": {
+                      "description": "social media identifiers of an enduser.",
+                      "properties": {
+                        "forticlient": {
+                          "description": "data on forticlient.",
+                          "properties": {
+                            "email": {
+                              "description": "email on forticlient.",
+                              "type": "string"
+                            },
+                            "name": {
+                              "description": "identifier on forticlient.",
+                              "type": "string"
+                            },
+                            "phoneno": {
+                              "description": "phoneno on forticlient.",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "google": {
+                          "description": "data on google.",
+                          "properties": {
+                            "email": {
+                              "description": "email on google.",
+                              "type": "string"
+                            },
+                            "name": {
+                              "description": "identifier on google.",
+                              "type": "string"
+                            },
+                            "phoneno": {
+                              "description": "phoneno on google.",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "linkedin": {
+                          "description": "data on linkedin.",
+                          "properties": {
+                            "email": {
+                              "description": "email on linkedin.",
+                              "type": "string"
+                            },
+                            "name": {
+                              "description": "identifier on linkedin.",
+                              "type": "string"
+                            },
+                            "phoneno": {
+                              "description": "phoneno on linkedin.",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "salesforce": {
+                          "description": "data on salesforce.",
+                          "properties": {
+                            "email": {
+                              "description": "email on salesforce.",
+                              "type": "string"
+                            },
+                            "name": {
+                              "description": "identifier on salesforce.",
+                              "type": "string"
+                            },
+                            "phoneno": {
+                              "description": "phoneno on salesforce.",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "title": {
+                      "description": "title of an enduser.",
+                      "type": "string"
+                    },
+                    "workaddr": {
+                      "description": "work address of an enduser.",
+                      "type": "string"
+                    },
+                    "workemail": {
+                      "description": "work email of an enduser.",
+                      "type": "string"
+                    },
+                    "workphone": {
+                      "description": "work phone of an enduser.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endusers"
+                ],
+                "example": "/ueba/adom/root/endusers",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.endusers.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to add method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Endpoint keys.",
+                "properties": {
+                  "detectkey": {
+                    "description": "key of an enduser",
+                    "type": "string"
+                  },
+                  "detecttype": {
+                    "description": "only support by_userid now.",
+                    "type": "string"
+                  },
+                  "euid": {
+                    "description": "id of an enduser.",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The add status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The add status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endusers.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "detail-level": {
+                "default": "standard",
+                "description": "The level of details to get.",
+                "enum": [
+                  "basic",
+                  "standard",
+                  "extended"
+                ],
+                "example": "standard",
+                "type": "string"
+              },
+              "euids": {
+                "description": "The enduser ID list.",
+                "items": {
+                  "description": "enduser ID",
+                  "example": "100",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "filter": {
+                "description": "The query filter.",
+                "example": "euname='localhost'",
+                "type": "string"
+              },
+              "limit": {
+                "default": 100000,
+                "description": "The maximun number of records to get.",
+                "example": 100000,
+                "maximum": 1000000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "The offset of records to get.",
+                "example": 0,
+                "minimum": 0,
+                "type": "number"
+              },
+              "sort-by": {
+                "description": "Sort by field.",
+                "items": {
+                  "properties": {
+                    "field": {
+                      "description": "Sortable field. Standard detail-level supports fields: euid, euname, eugroup, socialid, vpnip, firstseen, lastseen",
+                      "example": "euid",
+                      "type": "string"
+                    },
+                    "order": {
+                      "default": "ASC",
+                      "description": "Sorting order, ASC or DESC.",
+                      "example": "ASC",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endusers"
+                ],
+                "example": "/ueba/adom/root/endusers",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.endusers.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Enduser entries.",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "description": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endusers.stats..resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "Enduser stats entries.",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "descriptioin": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "descriptioin": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status",
+            "data"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.endusers.stats.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "stats-item": {
+                "description": "an array of strings that holds the requested stats type.",
+                "items": {
+                  "description": "requested enduser stat.",
+                  "enum": [
+                    "total-count",
+                    "new-count"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "time-range": {
+                "description": "Time range for enduser stats.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/endusers/stats"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.fgt-epeu.refresh..resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "descriptioin": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "descriptioin": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.fgt-epeu.refresh.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "devid": {
+                "description": "The serial number of the target fortigate",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/fgt-epeu/refresh"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "devid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ueba.ot-view..resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to get method.",
+          "properties": {
+            "data": {
+              "description": "A structured value of dataset.",
+              "items": {
+                "description": "OT-view node.",
+                "properties": {
+                  "epdevtype": {
+                    "description": "epdevtype of an endpoint / a node",
+                    "type": "string"
+                  },
+                  "epid": {
+                    "description": "An array of epid.",
+                    "items": {
+                      "description": "id of an endpoint.",
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "epkey": {
+                    "description": "detection key of an endpoint. (available when the 'epid' has single item)",
+                    "type": "string"
+                  },
+                  "epname": {
+                    "description": "name of an endpoint. (available when the 'epid' has single item)",
+                    "type": "string"
+                  },
+                  "from-epid": {
+                    "description": "An array of epid.",
+                    "items": {
+                      "description": "id of an endpoint.",
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "osname": {
+                    "description": "osname of an endpoint / a node",
+                    "type": "string"
+                  },
+                  "purdue-level": {
+                    "description": "purdue-level of an endpoint / a node.",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "epid",
+                  "from-epid",
+                  "purdue-level",
+                  "epdevtype"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "A structured value of status.",
+              "properties": {
+                "code": {
+                  "descriptioin": "The get status code.",
+                  "type": "number"
+                },
+                "message": {
+                  "descriptioin": "The get status message.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "code"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ueba.ot-view.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "filter": {
+                "description": "The query filter. (only support devid filtering now)",
+                "example": "devid=FGVM02TM23001113",
+                "type": "string"
+              },
+              "group-by": {
+                "description": "Group by field.",
+                "items": {
+                  "description": "We only support one group-by field for now.",
+                  "enum": [
+                    "epdevtype",
+                    "osname"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/ueba/adom/<adom-name>/ot-view"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "host": "172.16.79.72",
+  "info": {
+    "description": "Documentation for FortiAnalyzer JSON API<br/><br/>This daemon controls main system functions, including log in and log out. All APIs for this module are under the prefix <b>/sys/</b>.",
+    "title": "FortiAnalyzer JSON API Documentation",
+    "version": "7.4 (Build 2358)"
+  },
+  "paths": {
+    "/ueba/endpoints (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add/Update endpoints.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endpoints.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ueba.endpoints.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endpoints"
+        ]
+      }
+    },
+    "/ueba/endpoints (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an endpoints list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endpoints.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ueba.endpoints.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endpoints"
+        ]
+      }
+    },
+    "/ueba/endpoints/stats (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an endpoint stats list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endpoints.stats.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endpoints/stats"
+        ]
+      }
+    },
+    "/ueba/endpoints/vuln (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "get the endpoints vulnerability details.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endpoints.vuln.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endpoints/vuln"
+        ]
+      }
+    },
+    "/ueba/endusers (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add/Update endusers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endusers.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ueba.endusers.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endusers"
+        ]
+      }
+    },
+    "/ueba/endusers (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an endusers list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endusers.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ueba.endusers.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endusers"
+        ]
+      }
+    },
+    "/ueba/endusers/stats (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get an enduser stats list.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.endusers.stats.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/endusers/stats"
+        ]
+      }
+    },
+    "/ueba/fgt-epeu/refresh (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request FGT to send the latest epeu data through oftp immediately.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.fgt-epeu.refresh.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/fgt-epeu/refresh"
+        ]
+      }
+    },
+    "/ueba/ot-view (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get the OT-view asset information and relation.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ueba.ot-view.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ueba/ot-view"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Handle endpoints.",
+      "name": "/ueba/endpoints"
+    },
+    {
+      "description": "Handle endusers.",
+      "name": "/ueba/endusers"
+    },
+    {
+      "description": "List endpoint statistics.",
+      "name": "/ueba/endpoints/stats"
+    },
+    {
+      "description": "List enduser statistics.",
+      "name": "/ueba/endusers/stats"
+    },
+    {
+      "description": "Request a fgt-epeu service refresh.",
+      "name": "/ueba/fgt-epeu/refresh"
+    },
+    {
+      "description": "Handle ot-view.",
+      "name": "/ueba/ot-view"
+    },
+    {
+      "description": "Handle endpoints vulnerabilities.",
+      "name": "/ueba/endpoints/vuln"
+    }
+  ],
+  "x-service-type": "json-rpc"
+}

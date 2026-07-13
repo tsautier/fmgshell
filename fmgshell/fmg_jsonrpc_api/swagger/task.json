@@ -1,0 +1,1059 @@
+{
+	"swagger": "2.0",
+	"x-service-type": "json-rpc",
+	"info": {
+		"title": "FortiManager JSON API Documentation",
+		"description": "Documentation for FortiManager JSON API<br\/><br\/>This module contains APIs to read task database. All APIs for this module are read-only, and under the prefix <b>\/task\/<\/b>.",
+		"version": "7.4.2" 
+	},
+	"basePath": "\/jsonrpc",
+	"schemes": [
+		"https" 
+	],
+	"consumes": [
+		"application\/json" 
+	],
+	"produces": [
+		"application\/json" 
+	],
+	"tags": [
+		{
+			"name": "\/task\/task",
+			"description": "Read-only table containing the 10000 most recent tasks of the system. This table can be used for tracking non-blocking tasks initiated by the Device Manager Command and Security Console modules." 
+		},
+		{
+			"name": "\/task\/task\/line",
+			"description": "Read-only table.<br\/><br\/>The lines of a task can be unique identify by a combination of \"name\" and \"vdom\" attributes. As a result, there could be more than one object with the matching name, and only one of the objects will be returned if name is specified in the URL. It is recommended to apply filter on the table instead." 
+		},
+		{
+			"name": "\/task\/task\/line\/history",
+			"description": "" 
+		}
+	],
+	"definitions": {
+		"common.filter.object": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"example": [
+					"{attribute}",
+					"==",
+					"{value}" 
+				]
+			},
+			"description": "Filter the result according to a set of criteria." 
+		},
+		"common.range.object": {
+			"type": "array",
+			"items": {
+				"type": "integer",
+				"format": "int32",
+				"example": [
+					2,
+					5 
+				]
+			},
+			"description": "Limit the number of output. For a range of [a, n], the output will contain <i>n<\/i> elements, starting from the <i>a<sup>th<\/sup><\/i> matching result." 
+		},
+		"common.result.object": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"message": {
+					"type": "string" 
+				}
+			}
+		},
+		"common.sort.object": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"{attribute}": {
+						"type": "integer",
+						"enum": [
+							1,
+							-1 
+						],
+						"format": "int32" 
+					}
+				}
+			},
+			"description": "Specify the sorting of the returned result." 
+		},
+		"list.task.task": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"adom",
+					"end_tm",
+					"flags",
+					"id",
+					"num_done",
+					"num_err",
+					"num_lines",
+					"num_warn",
+					"percent",
+					"pid",
+					"src",
+					"start_tm",
+					"state",
+					"title",
+					"tot_percent",
+					"user" 
+				],
+				"example": "{attribute}" 
+			}
+		},
+		"list.task.task.line": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"detail",
+					"end_tm",
+					"err",
+					"ip",
+					"name",
+					"oid",
+					"percent",
+					"poid",
+					"start_tm",
+					"state",
+					"vdom" 
+				],
+				"example": "{attribute}" 
+			}
+		},
+		"list.task.task.line.history": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"detail",
+					"name",
+					"percent",
+					"state",
+					"vdom" 
+				],
+				"example": "{attribute}" 
+			}
+		},
+		"params.task.get.table.option.opts": {
+			"type": "string",
+			"enum": [
+				"count",
+				"syntax" 
+			],
+			"description": "Set fetch option for the request. If no option is specified, by default the attributes of the objects will be returned.<br\/><b>count<\/b> - Return the number of matching entries instead of the actual entry data.<br\/><b>syntax<\/b> - Return the attribute syntax of a table or an object, instead of the actual entry data. All filter parameters will be ignored.",
+			"example": "{option}" 
+		},
+		"task.task": {
+			"type": "object",
+			"properties": {
+				"adom": {
+					"type": "integer",
+					"format": "unsigned int64",
+					"default": 0,
+					"example": 0 
+				},
+				"end_tm": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"flags": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"id": {
+					"type": "integer",
+					"format": "sequence" 
+				},
+				"line": {
+					"type": "array",
+					"items": {
+						"$ref": "#\/definitions\/task.task.line" 
+					}
+				},
+				"num_done": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"num_err": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"num_lines": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"num_warn": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"percent": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"pid": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"src": {
+					"type": "string",
+					"default": "device manager",
+					"enum": [
+						"device manager",
+						"security console",
+						"global object",
+						"config installation",
+						"script installation",
+						"check point",
+						"import objects",
+						"import interfaces and zones",
+						"import policy",
+						"ems policy",
+						"policy check",
+						"assignment",
+						"object assignment",
+						"cloning package",
+						"certificate enrollment",
+						"install objects",
+						"unknown",
+						"install device",
+						"fwm",
+						"integrity check",
+						"cloning policy block",
+						"import config",
+						"generate controllers" 
+					],
+					"example": "device manager" 
+				},
+				"start_tm": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"state": {
+					"type": "string",
+					"default": "pending",
+					"enum": [
+						"pending",
+						"running",
+						"cancelling",
+						"cancelled",
+						"done",
+						"error",
+						"aborting",
+						"aborted",
+						"warning",
+						"to_continue",
+						"unknown" 
+					],
+					"example": "pending" 
+				},
+				"title": {
+					"type": "string",
+					"format": "string" 
+				},
+				"tot_percent": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"user": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"task.task.line": {
+			"type": "object",
+			"properties": {
+				"detail": {
+					"type": "string",
+					"format": "string" 
+				},
+				"end_tm": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"err": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"history": {
+					"type": "array",
+					"items": {
+						"$ref": "#\/definitions\/task.task.line.history" 
+					}
+				},
+				"ip": {
+					"type": "string",
+					"format": "string" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				},
+				"oid": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"percent": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"poid": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"start_tm": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0,
+					"example": 0 
+				},
+				"state": {
+					"type": "string",
+					"default": "pending",
+					"enum": [
+						"pending",
+						"running",
+						"cancelling",
+						"cancelled",
+						"done",
+						"error",
+						"aborting",
+						"aborted",
+						"warning",
+						"to_continue",
+						"unknown" 
+					],
+					"example": "pending" 
+				},
+				"vdom": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"task.task.line.history": {
+			"type": "object",
+			"properties": {
+				"detail": {
+					"type": "string",
+					"format": "string" 
+				},
+				"name": {
+					"type": "string",
+					"format": "string" 
+				},
+				"percent": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"state": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"default": 0,
+					"example": 0 
+				},
+				"vdom": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		}
+	},
+	"paths": {
+		"\/task\/task (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"fields": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/list.task.task" 
+												},
+												"description": "Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned." 
+											},
+											"filter": {
+												"$ref": "#\/definitions\/common.filter.object" 
+											},
+											"loadsub": {
+												"type": "integer",
+												"format": "int16",
+												"description": "Enable or disable the return of any sub-objects. If not specified, the default is to return all sub-objects." 
+											},
+											"option": {
+												"$ref": "#\/definitions\/params.task.get.table.option.opts" 
+											},
+											"range": {
+												"$ref": "#\/definitions\/common.range.object" 
+											},
+											"sortings": {
+												"$ref": "#\/definitions\/common.sort.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/task.task" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/task\/task" 
+				]
+			}
+		},
+		"\/task\/task\/{task} (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "task",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/task.task" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/task\/task" 
+				]
+			}
+		},
+		"\/task\/task\/{task}\/line (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "task",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"fields": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/list.task.task.line" 
+												},
+												"description": "Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned." 
+											},
+											"filter": {
+												"$ref": "#\/definitions\/common.filter.object" 
+											},
+											"loadsub": {
+												"type": "integer",
+												"format": "int16",
+												"description": "Enable or disable the return of any sub-objects. If not specified, the default is to return all sub-objects." 
+											},
+											"option": {
+												"$ref": "#\/definitions\/params.task.get.table.option.opts" 
+											},
+											"range": {
+												"$ref": "#\/definitions\/common.range.object" 
+											},
+											"sortings": {
+												"$ref": "#\/definitions\/common.sort.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/task.task.line" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/task\/task\/line" 
+				]
+			}
+		},
+		"\/task\/task\/{task}\/line\/{line} (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "task",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "line",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line\/{line}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/task.task.line" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line\/{line}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/task\/task\/line" 
+				]
+			}
+		},
+		"\/task\/task\/{task}\/line\/{line}\/history (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "task",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "line",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"fields": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/list.task.task.line.history" 
+												},
+												"description": "Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned." 
+											},
+											"filter": {
+												"$ref": "#\/definitions\/common.filter.object" 
+											},
+											"loadsub": {
+												"type": "integer",
+												"format": "int16",
+												"description": "Enable or disable the return of any sub-objects. If not specified, the default is to return all sub-objects." 
+											},
+											"option": {
+												"$ref": "#\/definitions\/params.task.get.table.option.opts" 
+											},
+											"range": {
+												"$ref": "#\/definitions\/common.range.object" 
+											},
+											"sortings": {
+												"$ref": "#\/definitions\/common.sort.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line\/{line}\/history" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/task.task.line.history" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line\/{line}\/history" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/task\/task\/line\/history" 
+				]
+			}
+		},
+		"\/task\/task\/{task}\/line\/{line}\/history\/{history} (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "task",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "line",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "history",
+						"in": "path",
+						"description": "",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line\/{line}\/history\/{history}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/task.task.line.history" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/task\/task\/{task}\/line\/{line}\/history\/{history}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/task\/task\/line\/history" 
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,853 @@
+{
+  "basePath": "/jsonrpc",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "ioc.events.ack.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "events": {
+                "description": "Events that need to acknowledge.",
+                "items": {
+                  "properties": {
+                    "comment": {
+                      "description": "Comments of acknowledgement.",
+                      "example": [
+                        "Acknowledged."
+                      ],
+                      "type": "string"
+                    },
+                    "endpoint-id": {
+                      "description": "Endpoint ID. Max length 12 bytes",
+                      "example": "epid12345678",
+                      "type": "string"
+                    },
+                    "source-ip": {
+                      "description": "Source IP.",
+                      "example": "10.0.0.1",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "time-range": {
+                "description": "Time range for IOC acknowledge.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ],
+                "type": "object"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>IOC Event Acknowledge</b>.",
+                "enum": [
+                  "/ioc/adom/<adom-name>/events/ack"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "events"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ioc.license.state.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>IOC license state</b>.",
+                "enum": [
+                  "/ioc/license/state"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ioc.license.state.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "items": {
+                "properties": {
+                  "TIDB-load-time": {
+                    "description": "TIDB load time",
+                    "type": "string"
+                  },
+                  "TIDB-version": {
+                    "description": "TIDB version",
+                    "type": "string"
+                  },
+                  "expiration": {
+                    "description": "IOC license expiration",
+                    "type": "string"
+                  },
+                  "license-state": {
+                    "description": "IOC license state",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ioc.rescan.history.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>IOC rescan history</b>.",
+                "enum": [
+                  "/ioc/adom/<adom-name>/rescan/history"
+                ],
+                "example": [
+                  "/ioc/adom/root/rescan/history"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ioc.rescan.history.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "items": {
+                "properties": {
+                  "logs-count": {
+                    "description": "count of logs in the task",
+                    "type": "number"
+                  },
+                  "logtime-begin": {
+                    "description": "begin time in logs",
+                    "type": "string"
+                  },
+                  "logtime-end": {
+                    "description": "end time in logs",
+                    "type": "string"
+                  },
+                  "logtimestamp-begin": {
+                    "description": "begin time in logs",
+                    "type": "number"
+                  },
+                  "logtimestamp-end": {
+                    "description": "end time in logs",
+                    "type": "number"
+                  },
+                  "new-blacklist-tidb": {
+                    "description": "count of new blacklist in this version of tidb",
+                    "type": "number"
+                  },
+                  "percentage": {
+                    "description": "percentage of task progress",
+                    "type": "number"
+                  },
+                  "status": {
+                    "description": "task status",
+                    "type": "string"
+                  },
+                  "threats-count": {
+                    "description": "count of threats found in the task",
+                    "type": "number"
+                  },
+                  "tid": {
+                    "description": "task id",
+                    "type": "number"
+                  },
+                  "time-begin": {
+                    "description": "task begin time",
+                    "type": "string"
+                  },
+                  "time-end": {
+                    "description": "task end time",
+                    "type": "string"
+                  },
+                  "timestamp-begin": {
+                    "description": "task begin time",
+                    "type": "number"
+                  },
+                  "timestamp-end": {
+                    "description": "task end time",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ioc.rescan.run.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>IOC rescan run</b>.",
+                "enum": [
+                  "/ioc/adom/<adom-name>/rescan/run"
+                ],
+                "example": [
+                  "/ioc/adom/root/rescan/run"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ioc.rescan.run.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "items": {
+                "properties": {
+                  "msg": {
+                    "description": "detail information of the task",
+                    "type": "string"
+                  },
+                  "new-blacklist-tidb": {
+                    "description": "count of new blacklist in this version of tidb",
+                    "type": "number"
+                  },
+                  "percentage": {
+                    "description": "percentage of task progress",
+                    "type": "number"
+                  },
+                  "status": {
+                    "description": "task status",
+                    "type": "string"
+                  },
+                  "threats-count": {
+                    "description": "count of threats found in the task",
+                    "type": "number"
+                  },
+                  "tid": {
+                    "description": "task id",
+                    "type": "number"
+                  },
+                  "time-begin": {
+                    "description": "task begin time",
+                    "type": "string"
+                  },
+                  "time-end": {
+                    "description": "task end time",
+                    "type": "string"
+                  },
+                  "timestamp-begin": {
+                    "description": "task begin time",
+                    "type": "number"
+                  },
+                  "timestamp-end": {
+                    "description": "task end time",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "ioc.rescan.run.tid.delete.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "delete"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>IOC rescan run</b>.",
+                "enum": [
+                  "/ioc/adom/<adom-name>/rescan/run/<tid>"
+                ],
+                "example": [
+                  "/ioc/adom/root/rescan/run/<tid>"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "ioc.rescan.run.tid.delete.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value contained return data and status.",
+          "properties": {
+            "data": {
+              "description": "A structure that holds the returned values.",
+              "items": {
+                "properties": {
+                  "status": {
+                    "description": "result",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "host": "172.16.79.72",
+  "info": {
+    "description": "Documentation for FortiAnalyzer JSON API<br/><br/>This daemon controls main system functions, including log in and log out. All APIs for this module are under the prefix <b>/sys/</b>.",
+    "title": "FortiAnalyzer JSON API Documentation",
+    "version": "7.4 (Build 2358)"
+  },
+  "paths": {
+    "/ioc/events/ack (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Acknowledge a specific IOC event.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ioc.events.ack.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ioc/events/ack"
+        ]
+      }
+    },
+    "/ioc/license/state (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get IOC license state.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ioc.license.state.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ioc.license.state.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ioc/license/state"
+        ]
+      }
+    },
+    "/ioc/rescan/history (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get IOC rescan history.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ioc.rescan.history.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ioc.rescan.history.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ioc/rescan/history"
+        ]
+      }
+    },
+    "/ioc/rescan/run (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get IOC rescan running task.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ioc.rescan.run.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ioc.rescan.run.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ioc/rescan/run"
+        ]
+      }
+    },
+    "/ioc/rescan/run/<tid> (delete)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete an IOC rescan running task.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ioc.rescan.run.tid.delete.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ioc.rescan.run.tid.delete.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/ioc/rescan/run/<tid>"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Acknowledge IOC events.",
+      "name": "/ioc/events/ack"
+    },
+    {
+      "description": "Get IOC license state.",
+      "name": "/ioc/license/state"
+    },
+    {
+      "description": "Get IOC rescan running task.",
+      "name": "/ioc/rescan/run"
+    },
+    {
+      "description": "Get IOC rescan history.",
+      "name": "/ioc/rescan/history"
+    },
+    {
+      "description": "Delete IOC rescan running tasks.",
+      "name": "/ioc/rescan/run/<tid>"
+    }
+  ],
+  "x-service-type": "json-rpc"
+}

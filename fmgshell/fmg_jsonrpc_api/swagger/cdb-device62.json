@@ -1,0 +1,2085 @@
+{
+	"swagger": "2.0",
+	"x-service-type": "json-rpc",
+	"info": {
+		"title": "FortiManager JSON API Documentation",
+		"description": "Documentation for FortiManager JSON API, ADOM version 6.2<br\/><br\/>This module is responsible for the configuration of managed devices. FortiManager has multiple configuration sets:<br\/><ul><li><b>Global (\/pm\/config\/global\/)<\/b> scope is all ADOMs, and configurations are copied to ADOM during global package assignment.<\/li><li><b>ADOM (\/pm\/config\/adom\/)<\/b> configurations are managed by packages and templates. Each template and package have their scope restricted to the a subset of the ADOM's devices that are assigned to the package, and configurations are copied down to device during install.<\/li><li><b>Device (\/pm\/config\/device\/global\/, \/pm\/config\/device\/vdom\/)<\/b> scope is one device only.<\/li><\/ul><br\/>Whenever configuration for <b>Global<\/b> or <b>ADOM<\/b> is modified, it will eventually be copied to <b>Device<\/b> config database after next installation. A few selected device-level objects are listed in this documentation. For other objects that are not supported by higher-level configuration sets, JSON requests to directly access and modify the configuration at the <b>Device<\/b> level can be done by a linear translation of FGT CLI object paths. Depending on OS version and platform type, the availability of objects and attributes will be different on different devices.<br\/><br\/>An example at the end of this section in documentation shows how FGT CLI translation works.",
+		"version": "7.4.2" 
+	},
+	"basePath": "\/jsonrpc",
+	"schemes": [
+		"https" 
+	],
+	"consumes": [
+		"application\/json" 
+	],
+	"produces": [
+		"application\/json" 
+	],
+	"tags": [
+		{
+			"name": "\/pm\/config\/vpn\/ssl\/settings",
+			"description": "Configure SSL VPN." 
+		},
+		{
+			"name": "\/pm\/config\/vpn\/ssl\/settings\/authentication-rule",
+			"description": "Authentication rule for SSL VPN." 
+		}
+	],
+	"definitions": {
+		"common.filter.object": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"example": [
+					"{attribute}",
+					"==",
+					"{value}" 
+				]
+			},
+			"description": "Filter the result according to a set of criteria." 
+		},
+		"common.range.object": {
+			"type": "array",
+			"items": {
+				"type": "integer",
+				"format": "int32",
+				"example": [
+					2,
+					5 
+				]
+			},
+			"description": "Limit the number of output. For a range of [a, n], the output will contain <i>n<\/i> elements, starting from the <i>a<sup>th<\/sup><\/i> matching result." 
+		},
+		"common.result.object": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"message": {
+					"type": "string" 
+				}
+			}
+		},
+		"common.sort.object": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"{attribute}": {
+						"type": "integer",
+						"enum": [
+							1,
+							-1 
+						],
+						"format": "int32" 
+					}
+				}
+			},
+			"description": "Specify the sorting of the returned result." 
+		},
+		"list.pm.config.vpn.ssl.settings.authentication-rule": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"auth",
+					"cipher",
+					"client-cert",
+					"groups",
+					"id",
+					"portal",
+					"realm",
+					"source-address",
+					"source-address-negate",
+					"source-address6",
+					"source-address6-negate",
+					"source-interface",
+					"user-peer",
+					"users" 
+				],
+				"example": "{attribute}" 
+			}
+		},
+		"mkey.pm.config.vpn.ssl.settings.authentication-rule": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "sequence",
+					"description": "ID (0 - 4294967295)." 
+				}
+			}
+		},
+		"params.cdb.get.obj.option.opts": {
+			"type": "string",
+			"enum": [
+				"scope member",
+				"chksum",
+				"datasrc" 
+			],
+			"description": "Set fetch option for the request. If no option is specified, by default the attributes of the object will be returned.<br\/><b>scope member<\/b> - Return a list of scope members along with other attributes.<br\/><b>chksum<\/b> - Return the check-sum value instead of attributes.<br\/><b>datasrc<\/b> - Return all objects that can be referenced by an attribute. Require <i>attr<\/i> parameter.",
+			"example": "{option}" 
+		},
+		"params.cdb.get.table.option.opts": {
+			"type": "string",
+			"enum": [
+				"count",
+				"scope member",
+				"datasrc",
+				"get reserved",
+				"syntax" 
+			],
+			"description": "Set fetch option for the request. If no option is specified, by default the attributes of the objects will be returned.<br\/><b>count<\/b> - Return the number of matching entries instead of the actual entry data.<br\/><b>scope member<\/b> - Return a list of scope members along with other attributes.<br\/><b>datasrc<\/b> - Return all objects that can be referenced by an attribute. Require <i>attr<\/i> parameter.<br\/><b>get reserved<\/b> - Also return reserved objects in the result.<br\/><b>syntax<\/b> - Return the attribute syntax of a table or an object, instead of the actual entry data. All filter parameters will be ignored.",
+			"example": "{option}" 
+		},
+		"params.cdb.move.generic.option.opts": {
+			"type": "string",
+			"enum": [
+				"before",
+				"after" 
+			],
+			"example": "{option}" 
+		},
+		"pm.config.vpn.ssl.settings": {
+			"type": "object",
+			"properties": {
+				"auth-session-check-source-ip": {
+					"type": "string",
+					"description": "Enable\/disable checking of source IP for authentication session.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"auth-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSL-VPN authentication timeout (1 - 259200 sec (3 days), 0 for no timeout)." 
+				},
+				"authentication-rule": {
+					"type": "array",
+					"items": {
+						"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+					}
+				},
+				"auto-tunnel-static-route": {
+					"type": "string",
+					"description": "Enable to auto-create static routes for the SSL-VPN tunnel IP addresses.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"banned-cipher": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"RSA",
+							"DH",
+							"DHE",
+							"ECDH",
+							"ECDHE",
+							"DSS",
+							"ECDSA",
+							"AES",
+							"AESGCM",
+							"CAMELLIA",
+							"3DES",
+							"SHA1",
+							"SHA256",
+							"SHA384",
+							"STATIC",
+							"CHACHA20",
+							"ARIA",
+							"AESCCM" 
+						],
+						"example": "{option}" 
+					},
+					"description": "Select one or more cipher technologies that cannot be used in SSL-VPN negotiations." 
+				},
+				"check-referer": {
+					"type": "string",
+					"description": "Enable\/disable verification of referer field in HTTP request header.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"default-portal": {
+					"type": "string",
+					"format": "datasource",
+					"description": "Default SSL VPN portal." 
+				},
+				"deflate-compression-level": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "Compression level (0~9)." 
+				},
+				"deflate-min-data-size": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "Minimum amount of data that triggers compression (200 - 65535 bytes)." 
+				},
+				"dns-server1": {
+					"type": "string",
+					"format": "IPv4 address",
+					"description": "DNS server 1." 
+				},
+				"dns-server2": {
+					"type": "string",
+					"format": "IPv4 address",
+					"description": "DNS server 2." 
+				},
+				"dns-suffix": {
+					"type": "string",
+					"format": "string",
+					"description": "DNS suffix used for SSL-VPN clients." 
+				},
+				"dtls-hello-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSLVPN maximum DTLS hello timeout (10 - 60 sec, default = 10)." 
+				},
+				"dtls-max-proto-ver": {
+					"type": "string",
+					"description": "DTLS maximum protocol version.",
+					"enum": [
+						"dtls1-0",
+						"dtls1-2" 
+					]
+				},
+				"dtls-min-proto-ver": {
+					"type": "string",
+					"description": "DTLS minimum protocol version.",
+					"enum": [
+						"dtls1-0",
+						"dtls1-2" 
+					]
+				},
+				"dtls-tunnel": {
+					"type": "string",
+					"description": "Enable DTLS to prevent eavesdropping, tampering, or message forgery.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"encode-2f-sequence": {
+					"type": "string",
+					"description": "Encode \\2F sequence to forward slash in URLs.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"force-two-factor-auth": {
+					"type": "string",
+					"description": "Enable only PKI users with two-factor authentication for SSL-VPNs.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"header-x-forwarded-for": {
+					"type": "string",
+					"description": "Forward the same, add, or remove HTTP header.",
+					"enum": [
+						"pass",
+						"add",
+						"remove" 
+					]
+				},
+				"hsts-include-subdomains": {
+					"type": "string",
+					"description": "Add HSTS includeSubDomains response header.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"http-compression": {
+					"type": "string",
+					"description": "Enable to allow HTTP compression over SSL-VPN tunnels.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"http-only-cookie": {
+					"type": "string",
+					"description": "Enable\/disable SSL-VPN support for HttpOnly cookies.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"http-request-body-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSL-VPN session is disconnected if an HTTP request body is not received within this time (1 - 60 sec, default = 20)." 
+				},
+				"http-request-header-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSL-VPN session is disconnected if an HTTP request header is not received within this time (1 - 60 sec, default = 20)." 
+				},
+				"https-redirect": {
+					"type": "string",
+					"description": "Enable\/disable redirect of port 80 to SSL-VPN port.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"idle-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSL VPN disconnects if idle for specified time in seconds." 
+				},
+				"ipv6-dns-server1": {
+					"type": "string",
+					"format": "IPv6 address",
+					"description": "IPv6 DNS server 1." 
+				},
+				"ipv6-dns-server2": {
+					"type": "string",
+					"format": "IPv6 address",
+					"description": "IPv6 DNS server 2." 
+				},
+				"ipv6-wins-server1": {
+					"type": "string",
+					"format": "IPv6 address",
+					"description": "IPv6 WINS server 1." 
+				},
+				"ipv6-wins-server2": {
+					"type": "string",
+					"format": "IPv6 address",
+					"description": "IPv6 WINS server 2." 
+				},
+				"login-attempt-limit": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSL VPN maximum login attempt times before block (0 - 10, default = 2, 0 = no limit)." 
+				},
+				"login-block-time": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "Time for which a user is blocked from logging in after too many failed login attempts (0 - 86400 sec, default = 60)." 
+				},
+				"login-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSLVPN maximum login timeout (10 - 180 sec, default = 30)." 
+				},
+				"port": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "SSL-VPN access port (1 - 65535)." 
+				},
+				"port-precedence": {
+					"type": "string",
+					"description": "Enable means that if SSL-VPN connections are allowed on an interface admin GUI connections are blocked on that interface.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"reqclientcert": {
+					"type": "string",
+					"description": "Enable to require client certificates for all SSL-VPN users.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"servercert": {
+					"type": "string",
+					"format": "datasource",
+					"description": "Name of the server certificate to be used for SSL-VPNs." 
+				},
+				"source-address": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "Source address of incoming traffic." 
+					},
+					"description": "Source address of incoming traffic." 
+				},
+				"source-address-negate": {
+					"type": "string",
+					"description": "Enable\/disable negated source address match.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"source-address6": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "IPv6 source address of incoming traffic." 
+					},
+					"description": "IPv6 source address of incoming traffic." 
+				},
+				"source-address6-negate": {
+					"type": "string",
+					"description": "Enable\/disable negated source IPv6 address match.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"source-interface": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "SSL VPN source interface of incoming traffic." 
+					},
+					"description": "SSL VPN source interface of incoming traffic." 
+				},
+				"ssl-client-renegotiation": {
+					"type": "string",
+					"description": "Enable to allow client renegotiation by the server if the tunnel goes down.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"ssl-insert-empty-fragment": {
+					"type": "string",
+					"description": "Enable\/disable insertion of empty fragment.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"ssl-max-proto-ver": {
+					"type": "string",
+					"description": "SSL maximum protocol version.",
+					"enum": [
+						"tls1-0",
+						"tls1-1",
+						"tls1-2",
+						"tls1-3" 
+					]
+				},
+				"ssl-min-proto-ver": {
+					"type": "string",
+					"description": "SSL minimum protocol version.",
+					"enum": [
+						"tls1-0",
+						"tls1-1",
+						"tls1-2",
+						"tls1-3" 
+					]
+				},
+				"tunnel-connect-without-reauth": {
+					"type": "string",
+					"description": "Enable\/disable tunnel connection without re-authorization if previous connection dropped.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"tunnel-ip-pools": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "Names of the IPv4 IP Pool firewall objects that define the IP addresses reserved for remote clients." 
+					},
+					"description": "Names of the IPv4 IP Pool firewall objects that define the IP addresses reserved for remote clients." 
+				},
+				"tunnel-ipv6-pools": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "Names of the IPv6 IP Pool firewall objects that define the IP addresses reserved for remote clients." 
+					},
+					"description": "Names of the IPv6 IP Pool firewall objects that define the IP addresses reserved for remote clients." 
+				},
+				"tunnel-user-session-timeout": {
+					"type": "integer",
+					"format": "unsigned int32",
+					"description": "Time out value to clean up user session after tunnel connection is dropped (1 - 255 sec, default=30)." 
+				},
+				"unsafe-legacy-renegotiation": {
+					"type": "string",
+					"description": "Enable\/disable unsafe legacy re-negotiation.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"url-obscuration": {
+					"type": "string",
+					"description": "Enable to obscure the host name of the URL of the web browser display.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"user-peer": {
+					"type": "string",
+					"format": "datasource",
+					"description": "Name of user peer." 
+				},
+				"wins-server1": {
+					"type": "string",
+					"format": "IPv4 address",
+					"description": "WINS server 1." 
+				},
+				"wins-server2": {
+					"type": "string",
+					"format": "IPv4 address",
+					"description": "WINS server 2." 
+				},
+				"x-content-type-options": {
+					"type": "string",
+					"description": "Add HTTP X-Content-Type-Options header.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				}
+			}
+		},
+		"pm.config.vpn.ssl.settings.authentication-rule": {
+			"type": "object",
+			"properties": {
+				"auth": {
+					"type": "string",
+					"description": "SSL VPN authentication method restriction.",
+					"enum": [
+						"any",
+						"local",
+						"radius",
+						"ldap",
+						"tacacs+",
+						"peer" 
+					]
+				},
+				"cipher": {
+					"type": "string",
+					"description": "SSL VPN cipher strength.",
+					"enum": [
+						"any",
+						"high",
+						"medium" 
+					]
+				},
+				"client-cert": {
+					"type": "string",
+					"description": "Enable\/disable SSL VPN client certificate restrictive.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"groups": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "User groups." 
+					},
+					"description": "User groups." 
+				},
+				"id": {
+					"type": "integer",
+					"format": "sequence",
+					"description": "ID (0 - 4294967295)." 
+				},
+				"portal": {
+					"type": "string",
+					"format": "datasource",
+					"description": "SSL VPN portal." 
+				},
+				"realm": {
+					"type": "string",
+					"format": "datasource",
+					"description": "SSL VPN realm." 
+				},
+				"source-address": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "Source address of incoming traffic." 
+					},
+					"description": "Source address of incoming traffic." 
+				},
+				"source-address-negate": {
+					"type": "string",
+					"description": "Enable\/disable negated source address match.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"source-address6": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "IPv6 source address of incoming traffic." 
+					},
+					"description": "IPv6 source address of incoming traffic." 
+				},
+				"source-address6-negate": {
+					"type": "string",
+					"description": "Enable\/disable negated source IPv6 address match.",
+					"enum": [
+						"disable",
+						"enable" 
+					]
+				},
+				"source-interface": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "SSL VPN source interface of incoming traffic." 
+					},
+					"description": "SSL VPN source interface of incoming traffic." 
+				},
+				"user-peer": {
+					"type": "string",
+					"format": "datasource",
+					"description": "Name of user peer." 
+				},
+				"users": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "datasource",
+						"description": "User name." 
+					},
+					"description": "User name." 
+				}
+			}
+		}
+	},
+	"paths": {
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"option": {
+												"$ref": "#\/definitions\/params.cdb.get.obj.option.opts" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"attr": {
+												"type": "string",
+												"format": "string",
+												"description": "The name of the attribute to retrieve its datasource. Only used with <i>datasrc<\/i> option." 
+											},
+											"fields": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/list.pm.config.vpn.ssl.settings.authentication-rule" 
+												},
+												"description": "Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned." 
+											},
+											"filter": {
+												"$ref": "#\/definitions\/common.filter.object" 
+											},
+											"get used": {
+												"type": "integer",
+												"format": "int16" 
+											},
+											"loadsub": {
+												"type": "integer",
+												"format": "int16",
+												"description": "Enable or disable the return of any sub-objects. If not specified, the default is to return all sub-objects." 
+											},
+											"option": {
+												"$ref": "#\/definitions\/params.cdb.get.table.option.opts" 
+											},
+											"range": {
+												"$ref": "#\/definitions\/common.range.object" 
+											},
+											"sortings": {
+												"$ref": "#\/definitions\/common.sort.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule (add)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "add" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"type": "array",
+												"items": {
+													"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+												}
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule} (get)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "authentication-rule",
+						"in": "path",
+						"description": "ID (0 - 4294967295).",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"option": {
+												"$ref": "#\/definitions\/params.cdb.get.obj.option.opts" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "get" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule} (set)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "authentication-rule",
+						"in": "path",
+						"description": "ID (0 - 4294967295).",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "set" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule} (update)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "authentication-rule",
+						"in": "path",
+						"description": "ID (0 - 4294967295).",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "update" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule} (delete)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "authentication-rule",
+						"in": "path",
+						"description": "ID (0 - 4294967295).",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "delete" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule} (move)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "authentication-rule",
+						"in": "path",
+						"description": "ID (0 - 4294967295).",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "move" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"option": {
+												"$ref": "#\/definitions\/params.cdb.move.generic.option.opts" 
+											},
+											"target": {
+												"type": "string",
+												"format": "string",
+												"description": "Key to the target entry." 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "move" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		},
+		"\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule} (clone)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "device",
+						"in": "path",
+						"description": "Device name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "vdom",
+						"in": "path",
+						"description": "VDOM name.",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "authentication-rule",
+						"in": "path",
+						"description": "ID (0 - 4294967295).",
+						"type": "string",
+						"required": true 
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "clone" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "clone" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/mkey.pm.config.vpn.ssl.settings.authentication-rule" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/pm\/config\/device\/{device}\/vdom\/{vdom}\/vpn\/ssl\/settings\/authentication-rule\/{authentication-rule}" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/pm\/config\/vpn\/ssl\/settings\/authentication-rule" 
+				]
+			}
+		}
+	}
+}

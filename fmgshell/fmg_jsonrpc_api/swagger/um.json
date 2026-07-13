@@ -1,0 +1,341 @@
+{
+	"swagger": "2.0",
+	"x-service-type": "json-rpc",
+	"info": {
+		"title": "FortiManager JSON API Documentation",
+		"description": "Documentation for FortiManager JSON API<br\/><br\/>This section includes commands for Update Manager. All API for this module are under the prefix <b>\/um\/<\/b>.",
+		"version": "7.4.2" 
+	},
+	"basePath": "\/jsonrpc",
+	"schemes": [
+		"https" 
+	],
+	"consumes": [
+		"application\/json" 
+	],
+	"produces": [
+		"application\/json" 
+	],
+	"tags": [
+		{
+			"name": "\/um\/image\/upgrade",
+			"description": "The older API for updating the firmware of specific device. Kept for compatibility purposes." 
+		},
+		{
+			"name": "\/um\/image\/upgrade\/ext",
+			"description": "Update the firmware of specific device." 
+		}
+	],
+	"definitions": {
+		"common.result.object": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32" 
+				},
+				"message": {
+					"type": "string" 
+				}
+			}
+		},
+		"common.scope.object": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string" 
+					},
+					"vdom": {
+						"type": "string" 
+					}
+				}
+			}
+		},
+		"resp.um.image.upgrade": {
+			"type": "object",
+			"properties": {
+				"taskid": {
+					"type": "integer",
+					"format": "int32" 
+				}
+			}
+		},
+		"resp.um.image.upgrade.ext": {
+			"type": "object",
+			"properties": {
+				"taskid": {
+					"type": "integer",
+					"format": "int32" 
+				}
+			}
+		},
+		"um.image.upgrade": {
+			"type": "object",
+			"properties": {
+				"adom": {
+					"type": "string",
+					"format": "datasource" 
+				},
+				"create_task": {
+					"type": "string",
+					"format": "string" 
+				},
+				"device": {
+					"$ref": "#\/definitions\/common.scope.object" 
+				},
+				"flags": {
+					"type": "string",
+					"enum": [
+						"f_boot_alt_partition",
+						"f_skip_retrieve",
+						"f_skip_multi_steps",
+						"f_skip_fortiguard_img",
+						"f_preview" 
+					]
+				},
+				"image": {
+					"$ref": "#\/definitions\/um.image.upgrade.image" 
+				},
+				"schedule_time": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"um.image.upgrade.ext": {
+			"type": "object",
+			"properties": {
+				"create_task": {
+					"type": "string",
+					"format": "string" 
+				},
+				"device": {
+					"$ref": "#\/definitions\/common.scope.object" 
+				},
+				"flags": {
+					"type": "string",
+					"enum": [
+						"f_boot_alt_partition",
+						"f_skip_retrieve",
+						"f_skip_multi_steps",
+						"f_skip_fortiguard_img",
+						"f_preview" 
+					]
+				},
+				"image": {
+					"type": "string",
+					"format": "string",
+					"description": "Support version with a build number. e.g., 6.2-b1111" 
+				},
+				"schedule_time": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		},
+		"um.image.upgrade.image": {
+			"type": "object",
+			"properties": {
+				"build": {
+					"type": "string",
+					"format": "string" 
+				},
+				"id": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "array" 
+					}
+				},
+				"model": {
+					"type": "string",
+					"format": "string" 
+				},
+				"release": {
+					"type": "string",
+					"format": "string" 
+				}
+			}
+		}
+	},
+	"paths": {
+		"\/um\/image\/upgrade (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/um.image.upgrade" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/um\/image\/upgrade" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.um.image.upgrade" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/um\/image\/upgrade" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/um\/image\/upgrade" 
+				]
+			}
+		},
+		"\/um\/image\/upgrade\/ext (exec)": {
+			"post": {
+				"summary": "",
+				"description": "",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Request body.",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"params": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/um.image.upgrade.ext" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/um\/image\/upgrade\/ext" 
+											}
+										}
+									}
+								},
+								"session": {
+									"type": "string" 
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK: Request returns successful",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"method": {
+									"type": "string",
+									"example": "exec" 
+								},
+								"result": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"data": {
+												"$ref": "#\/definitions\/resp.um.image.upgrade.ext" 
+											},
+											"status": {
+												"$ref": "#\/definitions\/common.result.object" 
+											},
+											"url": {
+												"type": "string",
+												"format": "string",
+												"example": "\/um\/image\/upgrade\/ext" 
+											}
+										}
+									}
+								},
+								"id": {
+									"type": "integer",
+									"format": "int32",
+									"example": 1 
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"\/um\/image\/upgrade\/ext" 
+				]
+			}
+		}
+	}
+}

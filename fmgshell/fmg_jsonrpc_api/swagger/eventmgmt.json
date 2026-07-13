@@ -1,0 +1,2368 @@
+{
+  "basePath": "/jsonrpc",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "eventmgmt.alertfilter.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "ruleid": {
+                "description": "The rule id of the rule configured in correlated typed handler.",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert filter</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alertfilter"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alertlogs.count.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "rulename": {
+                "description": "The rule name of the rule configured in correlated typed handler.",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Event Logs Count</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alertlogs/count"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alertlogs.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "limit": {
+                "default": 1000,
+                "description": "The max number of records to get.",
+                "example": 1000,
+                "maximum": 2000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "offset of records to get.",
+                "example": 0,
+                "type": "number"
+              },
+              "rulename": {
+                "description": "The rule name of the rule configured in correlated typed handler.",
+                "type": "string"
+              },
+              "time-order": {
+                "default": "desc",
+                "description": "Sort result in descending or ascending order by time",
+                "enum": [
+                  "desc",
+                  "asc"
+                ],
+                "example": "desc",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Event logs</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alertlogs"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.ack.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "update-by": {
+                "description": "The user perform the operation.",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Event Acknowledge</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/ack"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid",
+              "update-by"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.assign.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "assign-to": {
+                "description": "assign the alert to the user",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to assign alert.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/assign"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid",
+              "assign-to"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.comment.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "comment": {
+                "description": "Content of comment.",
+                "type": "string"
+              },
+              "update-by": {
+                "description": "The user perform the operation.",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Event Alert Comment</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/comment"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid",
+              "update-by"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.count.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "filter": {
+                "default": "",
+                "description": "Filter expression. 'ackflag', 'assigned', 'mgmt_state', 'triggername', 'eventtype', 'severity', 'eventstatus' and 'tag' are supported. i.e.: ackflag = no and triggername='Local Device Event'. Note: the field 'ackflag' supports = yes/no, !=yes/no and <>yes/no ,  the field 'assigned' only supports = yes/no or !=yes/no, the field 'mgmt_state' only supports (!)= acknowledged/triaged/pending_triage",
+                "example": "",
+                "type": "string"
+              },
+              "group-by": {
+                "description": "Get alert count by group.",
+                "enum": [
+                  "severity",
+                  "trigger",
+                  "severity_timescale",
+                  "eventtype",
+                  "mgmt_state"
+                ],
+                "type": "string"
+              },
+              "time-range": {
+                "description": "Time range for source data selection.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ],
+                "type": "object"
+              },
+              "timescale": {
+                "default": "month",
+                "description": "Time scale. Only valid for type 'severity-timescale'.",
+                "enum": [
+                  "month",
+                  "hour"
+                ],
+                "example": "month",
+                "type": "string"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Count</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/count"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be exported with basic handlers.",
+                "items": {
+                  "description": "An object that will be attached to the exporting file.",
+                  "example": "notification-profile",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "data-format": {
+                "default": "zip",
+                "description": "The format of the exporting data.",
+                "enum": [
+                  "zip",
+                  "txt",
+                  "cli"
+                ],
+                "example": "zip",
+                "type": "string"
+              },
+              "filter": {
+                "description": "A filter for selecting exporting basic handlers. <a href=\"objects.htm#filter\">Filter Refrence</a>",
+                "example": [
+                  "handler-id",
+                  "in",
+                  1,
+                  10041
+                ],
+                "items": {
+                  "description": "Filter format: [<source>, <operater>, <target1>, <target2>, ...].",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/export"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.export.get.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value responding to event handler <b>export</b> method.",
+          "properties": {
+            "attached": {
+              "description": "The attached objects in the exporting file, e.g. 'subnet'.",
+              "type": "array"
+            },
+            "checksum": {
+              "description": "Checksum information.",
+              "properties": {
+                "hash": {
+                  "description": "Checksum string.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Checksum algorithm, e.g. 'MD5'.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "method",
+                "hash"
+              ],
+              "type": "object"
+            },
+            "data": {
+              "description": "Data stream in txt format or base64 encoded zip format.",
+              "type": "string"
+            },
+            "data-type": {
+              "description": "The return type of data, e.g. 'zip/base64'.",
+              "type": "string"
+            },
+            "length": {
+              "description": "Length of the returned data stream.",
+              "type": "number"
+            }
+          },
+          "required": [
+            "length",
+            "data",
+            "data-type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "eventmgmt.alerts.extra-details.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertids": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Event logs</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/extra-details"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertids"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "filter": {
+                "default": "",
+                "description": "Filter expression. 'event_value', 'severity', 'trigger_name', 'count', 'comment' and 'flags' are supported. i.e.: trigger_name='Local Device Event' and severity >= 3",
+                "example": "",
+                "type": "string"
+              },
+              "limit": {
+                "default": 1000,
+                "description": "The max number of records to get.",
+                "example": 1000,
+                "maximum": 2000,
+                "minimum": 1,
+                "type": "number"
+              },
+              "offset": {
+                "default": 0,
+                "description": "offset of records to get.",
+                "example": 0,
+                "type": "number"
+              },
+              "time-range": {
+                "description": "Time range for data selection.",
+                "properties": {
+                  "end": {
+                    "description": "Ending date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "Starting date time. Consider it following the timezone parameter's, ADOM's or FortiAnalyzer's timezone if timezone info is not specified within time range. Format: 'yyyy-MM-dd'T'HH:mm:ssZ' (RFC 3339) e.g. '2016-10-17T20:45:37-07:00 or 'yyyy-MM-dd HH:mm:ss' e.g. '2016-10-17 20:45:37'",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ],
+                "type": "object"
+              },
+              "timezone": {
+                "description": "The timezone index or name. Time range in request and date/time if any in response will follow this timezone. See Appendix",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Events</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be imported with basic handlers.",
+                "items": {
+                  "enum": [
+                    "notification-profile"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "conflict-option": {
+                "default": "rename",
+                "description": "When the importing object has the name conflict with an local object, rename the importing object, replace the local object, or skip importing the object.",
+                "enum": [
+                  "rename",
+                  "replace",
+                  "skip"
+                ],
+                "example": "rename",
+                "type": "string"
+              },
+              "data": {
+                "description": "Data stream in json format or base64 encoded zip format.",
+                "type": "string"
+              },
+              "data-type": {
+                "default": "zip/base64",
+                "description": "The format of the importing data.",
+                "enum": [
+                  "zip/base64",
+                  "txt",
+                  "cli"
+                ],
+                "example": "zip/base64",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/import"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.import.add.resp": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "result": {
+          "description": "A structured value describing importing status.",
+          "properties": {
+            "attached": {
+              "description": "The attached objects in the importing file, e.g. 'subnet'.",
+              "items": {
+                "enum": [
+                  "subnet"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Status of the current task",
+              "properties": {
+                "code": {
+                  "description": "Status code",
+                  "type": "number"
+                },
+                "message": {
+                  "description": "Status description",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "eventmgmt.alerts.read.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Event Read</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/read"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.alerts.unack.update.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "update"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "alertid": {
+                "description": "Alert IDs.",
+                "items": {
+                  "description": "Alert ID.",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "update-by": {
+                "description": "The user perform the operation.",
+                "type": "string"
+              },
+              "url": {
+                "description": "The resource path to <b>Alert Event Unacknowledge</b>.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/alerts/unack"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "alertid",
+              "update-by"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.basic-handlers.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be exported with basic handlers.",
+                "items": {
+                  "description": "An object that will be attached to the exporting file.",
+                  "example": "notification-profile",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "data-format": {
+                "default": "zip",
+                "description": "The format of the exporting data.",
+                "enum": [
+                  "zip",
+                  "txt",
+                  "cli"
+                ],
+                "example": "zip",
+                "type": "string"
+              },
+              "filter": {
+                "description": "A filter for selecting exporting basic handlers. <a href=\"objects.htm#filter\">Filter Refrence</a>",
+                "example": [
+                  "handler-id",
+                  "in",
+                  1,
+                  10041
+                ],
+                "items": {
+                  "description": "Filter format: [<source>, <operater>, <target1>, <target2>, ...].",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/basic-handlers/export"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.basic-handlers.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be imported with basic handlers.",
+                "items": {
+                  "enum": [
+                    "notification-profile"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "conflict-option": {
+                "default": "rename",
+                "description": "When the importing object has the name conflict with an local object, rename the importing object, replace the local object, or skip importing the object.",
+                "enum": [
+                  "rename",
+                  "replace",
+                  "skip"
+                ],
+                "example": "rename",
+                "type": "string"
+              },
+              "data": {
+                "description": "Data stream in json format or base64 encoded zip format.",
+                "type": "string"
+              },
+              "data-type": {
+                "default": "zip/base64",
+                "description": "The format of the importing data.",
+                "enum": [
+                  "zip/base64",
+                  "txt",
+                  "cli"
+                ],
+                "example": "zip/base64",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/basic-handlers/import"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.correlation-handlers.export.get.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "get"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be exported with correlation handlers.",
+                "items": {
+                  "description": "An object that will be attached to the exporting file.",
+                  "example": "notification-profile",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "data-format": {
+                "default": "zip",
+                "description": "The format of the exporting data.",
+                "enum": [
+                  "zip",
+                  "txt",
+                  "cli"
+                ],
+                "example": "zip",
+                "type": "string"
+              },
+              "filter": {
+                "description": "A filter for selecting exporting correlation handlers. <a href=\"objects.htm#filter\">Filter Refrence</a>",
+                "example": [
+                  "handler-id",
+                  "in",
+                  1,
+                  10041
+                ],
+                "items": {
+                  "description": "Filter format: [<source>, <operater>, <target1>, <target2>, ...].",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/correlation-handlers/export"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.correlation-handlers.import.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "attachment": {
+                "description": "Objects that will be imported with correlation handlers.",
+                "items": {
+                  "enum": [
+                    "notification-profile"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "conflict-option": {
+                "default": "rename",
+                "description": "When the importing object has the name conflict with an local object, rename the importing object, replace the local object, or skip importing the object.",
+                "enum": [
+                  "rename",
+                  "replace",
+                  "skip"
+                ],
+                "example": "rename",
+                "type": "string"
+              },
+              "data": {
+                "description": "Data stream in json format or base64 encoded zip format.",
+                "type": "string"
+              },
+              "data-type": {
+                "default": "zip/base64",
+                "description": "The format of the importing data.",
+                "enum": [
+                  "zip/base64",
+                  "txt",
+                  "cli"
+                ],
+                "example": "zip/base64",
+                "type": "string"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/correlation-handlers/import"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "data"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.mitre-attack-matrix.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "mitre-domain": {
+                "description": "Query mitre domain, either enterprise or ics.",
+                "type": "string"
+              },
+              "option": {
+                "default": "metadata",
+                "description": "The option of the return data. Metadata is to include the technique name, url and description. Event-count, incident-count and handler-count is to include the statistic of each category.",
+                "enum": [
+                  "metadata",
+                  "event-count",
+                  "incident-count",
+                  "handler-count"
+                ],
+                "example": "metadata",
+                "type": "string"
+              },
+              "time-range": {
+                "properties": {
+                  "end": {
+                    "description": "The end time of the query time window.",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "The start time of the query time window.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/mitre-attack-matrix"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "mitre-domain"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    },
+    "eventmgmt.mitre-attack-matrix.technique.techid.add.req": {
+      "properties": {
+        "id": {
+          "description": "An identifier established by the client.",
+          "type": "string"
+        },
+        "jsonrpc": {
+          "description": "A string specifying the JSON-RPC protocol version.",
+          "enum": [
+            "2.0"
+          ],
+          "type": "string"
+        },
+        "method": {
+          "description": "A string containing the method name to be invoked.",
+          "enum": [
+            "add"
+          ],
+          "type": "string"
+        },
+        "params": {
+          "description": "A structure that holds the parameter values.",
+          "items": {
+            "properties": {
+              "apiver": {
+                "description": "Current API version.",
+                "enum": [
+                  3
+                ],
+                "type": "number"
+              },
+              "mitre-domain": {
+                "description": "Query mitre domain, either enterprise or ics.",
+                "type": "string"
+              },
+              "option": {
+                "default": "metadata",
+                "description": "The option of the return data. Metadata is to include the technique name, url and description. Event-count, incident-count and handler-count is to include the statistic of each category. Event-summary, incident-summary and handler-summary is to include the summary data for the given tehcnique id",
+                "enum": [
+                  "metadata",
+                  "event-count",
+                  "incident-count",
+                  "handler-count",
+                  "event-summary",
+                  "incident-summary",
+                  "handler-summary"
+                ],
+                "example": "metadata",
+                "type": "string"
+              },
+              "time-range": {
+                "properties": {
+                  "end": {
+                    "description": "The end time of the query time window.",
+                    "type": "string"
+                  },
+                  "start": {
+                    "description": "The start time of the query time window.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "description": "Uniform Resource Identifier.",
+                "enum": [
+                  "/eventmgmt/adom/<adom-name>/mitre-attack-matrix"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "apiver",
+              "mitre-domain"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "session": {
+          "description": "The cookie of an active session in FortiAnalyzer.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "host": "172.16.79.72",
+  "info": {
+    "description": "Documentation for FortiAnalyzer JSON API<br/><br/>This daemon controls main system functions, including log in and log out. All APIs for this module are under the prefix <b>/sys/</b>.",
+    "title": "FortiAnalyzer JSON API Documentation",
+    "version": "7.4 (Build 2358)"
+  },
+  "paths": {
+    "/eventmgmt/alertfilter (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get filter for a specific alert.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alertfilter.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alertfilter"
+        ]
+      }
+    },
+    "/eventmgmt/alertlogs (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "List logs associated with the specific alert.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alertlogs.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alertlogs"
+        ]
+      }
+    },
+    "/eventmgmt/alertlogs/count (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get logs count for a specific event alert.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alertlogs.count.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alertlogs/count"
+        ]
+      }
+    },
+    "/eventmgmt/alerts (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get alert events.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/ack (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Acknowledge a specific alert event.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.ack.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/ack"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/assign (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Assign alert event.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.assign.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/assign"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/comment (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add comment to a specific alert event.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.comment.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/comment"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/count (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Get the count of alert events.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.count.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/count"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting basic handlers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.export.get.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/export"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/extra-details (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "List alert extra details information.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.extra-details.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/extra-details"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing basic handlers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.import.add.resp"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/import"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/read (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Mark a specific alert event as read.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.read.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/read"
+        ]
+      }
+    },
+    "/eventmgmt/alerts/unack (update)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Unacknowledge a specific alert event.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.alerts.unack.update.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/alerts/unack"
+        ]
+      }
+    },
+    "/eventmgmt/basic-handlers/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting basic handlers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.basic-handlers.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/basic-handlers/export"
+        ]
+      }
+    },
+    "/eventmgmt/basic-handlers/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing basic handlers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.basic-handlers.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/basic-handlers/import"
+        ]
+      }
+    },
+    "/eventmgmt/correlation-handlers/export (get)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of exporting correlation handlers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.correlation-handlers.export.get.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/correlation-handlers/export"
+        ]
+      }
+    },
+    "/eventmgmt/correlation-handlers/import (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of importing correlation handlers.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.correlation-handlers.import.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/correlation-handlers/import"
+        ]
+      }
+    },
+    "/eventmgmt/mitre-attack-matrix (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of getting Mitre Attack Matrix.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.mitre-attack-matrix.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/mitre-attack-matrix"
+        ]
+      }
+    },
+    "/eventmgmt/mitre-attack-matrix/technique/<techid> (add)": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Request of getting Mitre Attack Matrix by Technique Id.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventmgmt.mitre-attack-matrix.technique.techid.add.req"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "",
+        "tags": [
+          "/eventmgmt/mitre-attack-matrix/technique"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "Handle alert events.",
+      "name": "/eventmgmt/alerts"
+    },
+    {
+      "description": "Get alert count.",
+      "name": "/eventmgmt/alerts/count"
+    },
+    {
+      "description": "Handle alert event logs.",
+      "name": "/eventmgmt/alertlogs"
+    },
+    {
+      "description": "Get alert event logs count.",
+      "name": "/eventmgmt/alertlogs/count"
+    },
+    {
+      "description": "Handle alert comments.",
+      "name": "/eventmgmt/alerts/comment"
+    },
+    {
+      "description": "Acknowledge alert events.",
+      "name": "/eventmgmt/alerts/ack"
+    },
+    {
+      "description": "Mark a specific alert event as read.",
+      "name": "/eventmgmt/alerts/read"
+    },
+    {
+      "description": "Handle alert filters.",
+      "name": "/eventmgmt/alertfilter"
+    },
+    {
+      "description": "Get alert extra details.",
+      "name": "/eventmgmt/alerts/extra-details"
+    },
+    {
+      "description": "Export basic handlers.",
+      "name": "/eventmgmt/alerts/export"
+    },
+    {
+      "description": "Import basic handlers.",
+      "name": "/eventmgmt/alerts/import"
+    },
+    {
+      "description": "Unacknowledge alert events.",
+      "name": "/eventmgmt/alerts/unack"
+    },
+    {
+      "description": "Assign alert events",
+      "name": "/eventmgmt/alerts/assign"
+    },
+    {
+      "description": "Export basic handlers.",
+      "name": "/eventmgmt/basic-handlers/export"
+    },
+    {
+      "description": "Import basic handlers.",
+      "name": "/eventmgmt/basic-handlers/import"
+    },
+    {
+      "description": "Export correlation handlers.",
+      "name": "/eventmgmt/correlation-handlers/export"
+    },
+    {
+      "description": "Import correlation handlers.",
+      "name": "/eventmgmt/correlation-handlers/import"
+    },
+    {
+      "description": "Get Mitre Attack matrix.",
+      "name": "/eventmgmt/mitre-attack-matrix"
+    },
+    {
+      "description": "Get Mitre Attack matrix by technique id",
+      "name": "/eventmgmt/mitre-attack-matrix/technique"
+    }
+  ],
+  "x-service-type": "json-rpc"
+}
